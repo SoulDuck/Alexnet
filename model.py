@@ -169,6 +169,7 @@ def sess_start(logs_path):
     saver=tf.train.Saver()
     sess=tf.Session()
     summary_writer = tf.summary.FileWriter(logs_path)
+    summary_writer.add_graph(tf.get_default_graph())
     init = tf.group(tf.global_variables_initializer() , tf.local_variables_initializer())
     sess.run(init)
     return sess, saver , summary_writer
