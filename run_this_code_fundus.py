@@ -24,7 +24,6 @@ sess, saver , summary_writer =model.sess_start('./logs')
 if not os.path.isdir('./models'):
     os.mkdir('./models')
 
-
 max_iter=2000000
 ckpt=10
 batch_size=80
@@ -32,10 +31,10 @@ share=len(test_labs)/batch_size
 for step in range(max_iter):
     if step % ckpt==0:
         """ #### testing ### """
-        test_fetches = [accuracy_op, loss_op, pred_op]
+        test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
         for i in range(share): #여기서 테스트 셋을 sess.run()할수 있게 쪼갭니다
-            test_feedDict = {x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size], lr_: 0.001, is_training: False}
+            test_feedDict = { x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size], lr_: 0.001, is_training: False }
             val_acc ,val_loss , pred = sess.run( fetches=test_fetches, feed_dict=test_feedDict )
             val_acc_mean.append(val_acc)
             val_loss_mean.append(val_loss)
@@ -43,7 +42,7 @@ for step in range(max_iter):
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
-        model.write_acc_loss( summary_writer, 'validation', loss=val_loss, acc=val_acc, step=step )
+        model.write_acc_loss( summary_writer, 'validation', loss=val_loss, acc=val_acc, step=step)
         saver.save(sess=sess,save_path='./models/model_fundus_300/model' , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
