@@ -17,7 +17,7 @@ h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
 
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=False)
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training)
 train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
 sess, saver , summary_writer =model.sess_start('./logs')
 
