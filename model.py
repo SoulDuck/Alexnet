@@ -128,7 +128,6 @@ def build_graph(x_ , y_ , is_training):
             layer = tf.nn.relu(layer)
             if i in after_act_bn_mode:
                 layer = batch_norm(layer, is_training)
-
             layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
@@ -136,17 +135,17 @@ def build_graph(x_ , y_ , is_training):
     fc_out_features = [1024,1024, n_classes]
 
 
-    before_act_bn_mode = [0, 1,]
+    before_act_bn_mode = [0, 1]
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:
             if i in before_act_bn_mode:
-                batch_norm(layer , is_training)
+                layer=batch_norm(layer , is_training)
             layer=fc_with_bias(layer , fc_out_features[i] )
             layer=tf.nn.relu(layer)
             layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob )
             if i in after_act_bn_mode:
-                batch_norm(layer, is_training)
+                layer=batch_norm(layer, is_training)
     print conv_keep_prob , fc_keep_prob
     return layer
 
