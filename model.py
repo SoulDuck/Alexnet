@@ -92,7 +92,7 @@ def fc_layer_to_clssses(_input , n_classes , is_training):
     return logits
 
 
-def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
+def build_graph(x_ , y_ , is_training):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
@@ -104,8 +104,16 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
 
 
     allow_max_pool_indices=[0,1,4]
-    conv_keep_prob=0.8
+    def fn1():
+        conv_keep_prob=0.8
+        fc_keep_prob = 0.5
+        return conv_keep_prob , fc_keep_prob
+    def fn2():
+        conv_keep_prob = 1.
+        fc_keep_prob = 1.
+        return conv_keep_prob, fc_keep_prob
 
+    conv_keep_prob, fc_keep_prob = tf.cond(is_training , fn1 , fn2)
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
     for i in range(len(conv_out_features)):
@@ -126,7 +134,6 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
     fc_out_features = [1024,1024, n_classes]
-    fc_keep_prob = 0.5
 
 
     before_act_bn_mode = [0, 1,]
@@ -137,9 +144,10 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
                 batch_norm(layer , is_training)
             layer=fc_with_bias(layer , fc_out_features[i] )
             layer=tf.nn.relu(layer)
-            layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob ,)
+            layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob )
             if i in after_act_bn_mode:
                 batch_norm(layer, is_training)
+    print conv_keep_prob , fc_keep_prob
     return layer
 
 
