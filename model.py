@@ -94,36 +94,53 @@ def fc_layer_to_clssses(_input , n_classes , is_training):
     return logits
 
 
-def build_graph(x_ , y_ , bn_mode , is_training):
+def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
     conv_out_features=[16,32,64,128,256]
     conv_kernel_sizes=[5,5,5,3,3]
     conv_strides=[2,2,2,2,2]
-    allow_max_pool_indices=[1,2,5]
+    before_act_bn_mode = [0, 1, 2, 3, 4]
+    after_act_bn_mode = [0, 1, 2, 3, 4]
+
+
+    allow_max_pool_indices=[0,1,4]
     conv_keep_prob=0.8
 
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
     for i in range(len(conv_out_features)):
 
+        if i in before_act_bn_mode:
+            layer=batch_norm(layer , is_training)
         layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
                              strides= [ 1, conv_strides[i], conv_strides[i], 1 ], padding='SAME' , name='conv_{}'.format(str(i)))
-
         if i in allow_max_pool_indices:
             layer=tf.nn.max_pool(layer , ksize=[1,2,2,1] , strides=[1,2,2,1] , padding='SAME')
-        layr = tf.nn.relu(layer)
-        tf.nn.dropout(layer , keep_prob=conv_keep_prob)
+            print layer
+        layer = tf.nn.relu(layer)
+        if i in after_act_bn_mode:
+            layer = batch_norm(layer, is_training)
+
+        layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
     fc_out_features = [1024,1024, n_classes]
     fc_keep_prob = 0.5
+
+
+    before_act_bn_mode = [0, 1,]
+    after_act_bn_mode = []
     for i in range(len(fc_out_features)):
+        if i in before_act_bn_mode:
+            batch_norm(layer , is_training)
         layer=fc_with_bias(layer , fc_out_features[i] , name = 'fc_{}'.format(str(i)))
         layer=tf.nn.relu(layer)
-    layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob)
+        layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob ,)
+        if i in after_act_bn_mode:
+            batch_norm(layer, is_training)
 
     return layer
 
