@@ -4,7 +4,7 @@ import input
 import os
 import fundus
 import numpy as np
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=(288,288))
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300' , onehot=True , resize=(288,288))
 #normalize
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
@@ -25,7 +25,7 @@ if not os.path.isdir('./models'):
     os.mkdir('./models')
 
 
-max_iter=200000
+max_iter=2000000
 ckpt=1000
 batch_size=12
 share=len(test_labs)/batch_size
@@ -44,8 +44,7 @@ for step in range(max_iter):
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss, acc=val_acc, step=step )
-
-        saver.save(sess=sess,save_path='./models/model_fundus_300/' , global_step=step)
+        saver.save(sess=sess,save_path='./models/model_fundus_300/model' , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
