@@ -23,21 +23,19 @@ def weight_variable_xavier( shape , name):
 def bias_variable(shape  , name='bias' ):
     initial=tf.constant(0.0 , shape=shape)
     return tf.get_variable(name,initializer=initial)
-def conv2d_with_bias(_input , out_feature , kernel_size , strides , padding , name ):
-    with tf.variable_scope(name) as scope:
-        in_feature=int(_input.get_shape()[-1])
-        kernel=weight_variable_msra([kernel_size,kernel_size,in_feature, out_feature] , name='kernel')
-        layer=tf.nn.conv2d(_input, kernel, strides, padding) + bias_variable(shape=[out_feature])
-        print layer
-        return layer
+def conv2d_with_bias(_input , out_feature , kernel_size , strides , padding):
+    in_feature=int(_input.get_shape()[-1])
+    kernel=weight_variable_msra([kernel_size,kernel_size,in_feature, out_feature] , name='kernel')
+    layer=tf.nn.conv2d(_input, kernel, strides, padding) + bias_variable(shape=[out_feature])
+    print layer
+    return layer
 
-def fc_with_bias(_input , out_features , name):
-    with tf.variable_scope(name) as scope:
-        in_fearues=int(_input.get_shape()[-1])
-        kernel=weight_variable_xavier([in_fearues , out_features] , name='kernel')
-        layer =tf.matmul(_input, kernel) + bias_variable(shape=[out_features])
-        print layer
-        return layer
+def fc_with_bias(_input , out_features ):
+    in_fearues=int(_input.get_shape()[-1])
+    kernel=weight_variable_xavier([in_fearues , out_features] , name='kernel')
+    layer =tf.matmul(_input, kernel) + bias_variable(shape=[out_features])
+    print layer
+    return layer
 
 def avg_pool( _input , k ):
     ksize=[1,k,k,1]
@@ -102,7 +100,7 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     conv_kernel_sizes=[5,5,5,3,3]
     conv_strides=[2,2,2,2,2]
     before_act_bn_mode = [0, 1, 2, 3, 4]
-    after_act_bn_mode = [0, 1, 2, 3, 4]
+    after_act_bn_mode = []
 
 
     allow_max_pool_indices=[0,1,4]
@@ -111,19 +109,19 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
     for i in range(len(conv_out_features)):
+        with tf.variable_scope('conv_{}'.format(str(i))) as scope:
+            if i in before_act_bn_mode:
+                layer=batch_norm(layer , is_training)
+            layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
+                                 strides= [ 1, conv_strides[i], conv_strides[i], 1 ], padding='SAME' )
+            if i in allow_max_pool_indices:
+                layer=tf.nn.max_pool(layer , ksize=[1,2,2,1] , strides=[1,2,2,1] , padding='SAME')
+                print layer
+            layer = tf.nn.relu(layer)
+            if i in after_act_bn_mode:
+                layer = batch_norm(layer, is_training)
 
-        if i in before_act_bn_mode:
-            layer=batch_norm(layer , is_training)
-        layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
-                             strides= [ 1, conv_strides[i], conv_strides[i], 1 ], padding='SAME' , name='conv_{}'.format(str(i)))
-        if i in allow_max_pool_indices:
-            layer=tf.nn.max_pool(layer , ksize=[1,2,2,1] , strides=[1,2,2,1] , padding='SAME')
-            print layer
-        layer = tf.nn.relu(layer)
-        if i in after_act_bn_mode:
-            layer = batch_norm(layer, is_training)
-
-        layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
+            layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
@@ -134,14 +132,14 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     before_act_bn_mode = [0, 1,]
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
-        if i in before_act_bn_mode:
-            batch_norm(layer , is_training)
-        layer=fc_with_bias(layer , fc_out_features[i] , name = 'fc_{}'.format(str(i)))
-        layer=tf.nn.relu(layer)
-        layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob ,)
-        if i in after_act_bn_mode:
-            batch_norm(layer, is_training)
-
+        with tf.variable_scope('fc_{}'.format(str(i))) as scope:
+            if i in before_act_bn_mode:
+                batch_norm(layer , is_training)
+            layer=fc_with_bias(layer , fc_out_features[i] )
+            layer=tf.nn.relu(layer)
+            layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob ,)
+            if i in after_act_bn_mode:
+                batch_norm(layer, is_training)
     return layer
 
 
@@ -199,5 +197,5 @@ def write_acc_loss(summary_writer ,prefix , loss , acc  , step):
 
 if __name__ == '__main__':
     x_ , y_ , lr_ , is_training =define_inputs(shape=[None , 299,299, 3 ] , n_classes=2 )
-    build_graph(x_=x_ , y_=y_ , bn_mode=False , is_training=False)
+    build_graph(x_=x_ , y_=y_ ,is_training=False ,conv_keep_prob=0.8 , fc_keep_prob=0.5)
 
