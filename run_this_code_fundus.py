@@ -2,11 +2,9 @@
 import model
 import input
 import tensorflow as tf
-import cifar
 import fundus
-import matplotlib.pyplot as plt
 import numpy as np
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300' , onehot=True , resize=(288,288))
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=(288,288))
 #normalize
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
@@ -19,9 +17,11 @@ h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
 
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
-logits=model.build_graph(x_,y_,bc_mode=False , is_training=is_training , growth_rate=12 , total_blocks= 5 , layers_per_block=5)
+logits=model.build_graph( x_, y_, bn_mode=False, is_training=is_training )
 train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
 sess, saver , summary_writer =model.sess_start('./logs')
+
+
 
 max_iter=200000
 ckpt=1000
