@@ -205,5 +205,5 @@ def write_acc_loss(summary_writer ,prefix , loss , acc  , step):
 
 if __name__ == '__main__':
     x_ , y_ , lr_ , is_training =define_inputs(shape=[None , 299,299, 3 ] , n_classes=2 )
-    build_graph(x_=x_ , y_=y_ ,is_training=False ,conv_keep_prob=0.8 , fc_keep_prob=0.5)
+    build_graph( x_=x_ , y_=y_ ,is_training=False )
 
