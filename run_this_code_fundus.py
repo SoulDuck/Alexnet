@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import model
 import input
-import tensorflow as tf
+import os
 import fundus
 import numpy as np
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=(288,288))
@@ -21,6 +21,8 @@ logits=model.build_graph( x_, y_, bn_mode=False, is_training=is_training )
 train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
 sess, saver , summary_writer =model.sess_start('./logs')
 
+if not os.path.isdir('./models'):
+    os.mkdir('./models')
 
 
 max_iter=200000
@@ -42,6 +44,7 @@ for step in range(max_iter):
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss, acc=val_acc, step=step )
+
         saver.save(sess=sess,save_path='./models/model_fundus_300/' , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
