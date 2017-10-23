@@ -4,7 +4,7 @@ import input
 import os
 import fundus
 import numpy as np
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300' , onehot=True , resize=(288,288))
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type1(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=(288,288))
 #normalize
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
