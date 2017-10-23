@@ -174,6 +174,11 @@ def sess_start(logs_path):
     return sess, saver , summary_writer
 
 
+def write_acc_loss(summary_writer ,prefix , loss , acc  , step):
+    summary = tf.Summary(value=[tf.Summary.Value(tag='loss_{}'.format(prefix), simple_value=float(loss)),
+                                tf.Summary.Value(tag='accuracy_{}'.format(prefix), simple_value=float(acc))])
+    summary_writer.add_summary(summary, step)
+
 if __name__ == '__main__':
     x_ , y_ , lr_ , is_training =define_inputs(shape=[None , 299,299, 3 ] , n_classes=2 )
     build_graph(x_=x_ , y_=y_ , bn_mode=False , is_training=False)
