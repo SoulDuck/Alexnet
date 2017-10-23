@@ -99,7 +99,7 @@ def build_graph(x_ , y_ , is_training , conv_keep_prob , fc_keep_prob):
     conv_out_features=[16,32,64,128,256]
     conv_kernel_sizes=[5,5,5,3,3]
     conv_strides=[2,2,2,2,2]
-    before_act_bn_mode = [0, 1, 2, 3, 4]
+    before_act_bn_mode = []
     after_act_bn_mode = []
 
 
