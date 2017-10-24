@@ -98,22 +98,21 @@ def build_graph(x_ , y_ , is_training):
 
     conv_out_features=[16,32,64,128,256]
     conv_kernel_sizes=[5,5,5,3,3]
-    conv_strides=[2,2,2,2,2]
+    conv_strides=[1,1,1,1,1]
     before_act_bn_mode = []
     after_act_bn_mode = []
 
 
     allow_max_pool_indices=[0,1,4]
-    def fn1():
+    def _fn1():
         conv_keep_prob=0.8
         fc_keep_prob = 0.5
         return conv_keep_prob , fc_keep_prob
-    def fn2():
+    def _fn2():
         conv_keep_prob = 1.
         fc_keep_prob = 1.
         return conv_keep_prob, fc_keep_prob
 
-    conv_keep_prob, fc_keep_prob = tf.cond(is_training , fn1 , fn2)
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
     for i in range(len(conv_out_features)):
@@ -123,30 +122,34 @@ def build_graph(x_ , y_ , is_training):
             layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
                                  strides= [ 1, conv_strides[i], conv_strides[i], 1 ], padding='SAME' )
             if i in allow_max_pool_indices:
+                print 'max pooling layer : {}'.format(i)
                 layer=tf.nn.max_pool(layer , ksize=[1,2,2,1] , strides=[1,2,2,1] , padding='SAME')
                 print layer
             layer = tf.nn.relu(layer)
             if i in after_act_bn_mode:
                 layer = batch_norm(layer, is_training)
-            layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
+            #layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
+            layer=tf.cond(is_training , lambda :  tf.nn.dropout(layer ,  keep_prob=0.5)  , lambda : layer)
+
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
     fc_out_features = [1024,1024, n_classes]
 
 
-    before_act_bn_mode = [0, 1]
+    before_act_bn_mode = []
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:
             if i in before_act_bn_mode:
+                print 'batch normalization {}'.format(i)
                 layer=batch_norm(layer , is_training)
             layer=fc_with_bias(layer , fc_out_features[i] )
             layer=tf.nn.relu(layer)
-            layer = tf.nn.dropout(layer, keep_prob=fc_keep_prob )
+            layer=tf.cond(is_training , lambda: tf.nn.dropout(layer , keep_prob=0.5) , lambda: layer)
             if i in after_act_bn_mode:
                 layer=batch_norm(layer, is_training)
-    print conv_keep_prob , fc_keep_prob
+    logits=tf.identity(layer , name= 'logits')
     return layer
 
 
@@ -204,5 +207,5 @@ def write_acc_loss(summary_writer ,prefix , loss , acc  , step):
 
 if __name__ == '__main__':
     x_ , y_ , lr_ , is_training =define_inputs(shape=[None , 299,299, 3 ] , n_classes=2 )
-    build_graph( x_=x_ , y_=y_ ,is_training=False )
+    build_graph( x_=x_ , y_=y_ ,is_training=is_training )
 
