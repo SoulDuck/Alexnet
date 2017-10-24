@@ -35,7 +35,7 @@ for step in range(max_iter):
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
         for i in range(share): #여기서 테스트 셋을 sess.run()할수 있게 쪼갭니다
-            test_feedDict = { x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size], lr_: 0.01, is_training: False }
+            test_feedDict = { x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size], lr_: 0.1, is_training: False }
             val_acc ,val_loss , pred = sess.run( fetches=test_fetches, feed_dict=test_feedDict )
             val_acc_mean.append(val_acc)
             val_loss_mean.append(val_loss)
@@ -48,7 +48,7 @@ for step in range(max_iter):
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
-    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.01, is_training: True}
+    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.1, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
     model.write_acc_loss(summary_writer ,'train' , loss= train_loss , acc=train_acc  ,step= step)
