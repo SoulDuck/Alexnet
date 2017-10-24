@@ -96,7 +96,7 @@ def build_graph(x_ , y_ , is_training):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
-    conv_out_features=[16,16,16,16,16]
+    conv_out_features=[16,16,16,16,16   ]
     conv_kernel_sizes=[5,5,5,3,3]
     conv_strides=[1,1,1,1,1]
     before_act_bn_mode = []
@@ -129,7 +129,7 @@ def build_graph(x_ , y_ , is_training):
             if i in after_act_bn_mode:
                 layer = batch_norm(layer, is_training)
             #layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
-            layer=tf.cond(is_training , lambda :  tf.nn.dropout(layer ,  keep_prob=0.5)  , lambda : layer)
+            layer=tf.cond(is_training , lambda :  tf.nn.dropout(layer ,  keep_prob=1.0)  , lambda : layer)
 
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
