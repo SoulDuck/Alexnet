@@ -44,25 +44,6 @@ def avg_pool( _input , k ):
     output=tf.nn.avg_pool(_input , ksize ,strides,padding)
     return output
 
-def affine(name,x,out_ch ,keep_prob):
-    with tf.variable_scope(name) as scope:
-        if len(x.get_shape())==4:
-            batch, height , width , in_ch=x.get_shape().as_list()
-            w_fc=tf.get_variable('w' , [height*width*in_ch ,out_ch] , initializer= tf.contrib.layers.xavier_initializer())
-            x = tf.reshape(x, (-1, height * width * in_ch))
-        elif len(x.get_shape())==2:
-            batch, in_ch = x.get_shape().as_list()
-            w_fc=tf.get_variable('w' ,[in_ch ,out_ch] ,initializer=tf.contrib.layers.xavier_initializer())
-        b_fc=tf.Variable(tf.constant(0.1 ), out_ch)
-        layer=tf.matmul(x , w_fc) + b_fc
-        layer=tf.nn.relu(layer)
-        layer=tf.nn.dropout(layer , keep_prob)
-
-        print 'layer name :'
-        print 'layer shape :',layer.get_shape()
-        print 'layer dropout rate :',keep_prob
-        return layer
-
 
 def fc_layer(_input ,out_feature , act_func='relu' , dropout='True' ):
     assert len(_input.get_shape()) == 2 , len(_input.get_shape())
