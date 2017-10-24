@@ -184,7 +184,7 @@ def define_inputs(shape, n_classes):
         tf.float32,
         shape=[],
         name='learning_rate')
-    is_training = tf.placeholder(tf.bool, shape=[])
+    is_training = tf.placeholder(tf.bool, shape=[] ,name='is_training_')
     return images, labels, learning_rate, is_training
 
 def sess_start(logs_path):

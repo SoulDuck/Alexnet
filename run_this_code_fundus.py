@@ -24,7 +24,7 @@ sess, saver , summary_writer =model.sess_start('./logs')
 if not os.path.isdir('./models'):
     os.mkdir('./models')
 
-max_iter=200000
+max_iter=2000000
 ckpt=100
 batch_size=80
 share=len(test_labs)/batch_size
