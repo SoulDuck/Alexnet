@@ -19,7 +19,7 @@ n_classes=np.shape(train_labs)[-1]
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
 logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training)
 train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
-sess, saver , summary_writer =model.sess_start('./logs')
+sess, saver , summary_writer =model.sess_start('./logs/fundus_300')
 
 if not os.path.isdir('./models'):
     os.mkdir('./models')
@@ -43,7 +43,7 @@ for step in range(max_iter):
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_acc_mean, acc=val_loss_mean, step=step)
-        saver.save(sess=sess,save_path='./models/model_fundus_300/model' , global_step=step)
+        saver.save(sess=sess,save_path='./models/fundus_300/model_{}'.format(step) , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
