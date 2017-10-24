@@ -101,17 +101,7 @@ def build_graph(x_ , y_ , is_training):
     conv_strides=[1,1,1,1,1]
     before_act_bn_mode = []
     after_act_bn_mode = []
-
-
     allow_max_pool_indices=[0,1,4]
-    def _fn1():
-        conv_keep_prob=0.8
-        fc_keep_prob = 0.5
-        return conv_keep_prob , fc_keep_prob
-    def _fn2():
-        conv_keep_prob = 1.
-        fc_keep_prob = 1.
-        return conv_keep_prob, fc_keep_prob
 
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
