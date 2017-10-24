@@ -96,7 +96,7 @@ def build_graph(x_ , y_ , is_training):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
-    conv_out_features=[16,32,64,128,256]
+    conv_out_features=[16,16,16,16,16]
     conv_kernel_sizes=[5,5,5,3,3]
     conv_strides=[1,1,1,1,1]
     before_act_bn_mode = []
