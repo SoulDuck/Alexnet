@@ -42,7 +42,7 @@ for step in range(max_iter):
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
-        model.write_acc_loss( summary_writer, 'validation', loss=val_loss, acc=val_acc, step=step)
+        model.write_acc_loss( summary_writer, 'validation', loss=val_acc_mean, acc=val_loss_mean, step=step)
         saver.save(sess=sess,save_path='./models/model_fundus_300/model' , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
