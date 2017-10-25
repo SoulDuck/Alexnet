@@ -27,6 +27,7 @@ def conv2d_with_bias(_input , out_feature , kernel_size , strides , padding):
     in_feature=int(_input.get_shape()[-1])
     kernel=weight_variable_msra([kernel_size,kernel_size,in_feature, out_feature] , name='kernel')
     layer=tf.nn.conv2d(_input, kernel, strides, padding) + bias_variable(shape=[out_feature])
+    layer=tf.nn.relu(layer)
     print layer
     return layer
 
