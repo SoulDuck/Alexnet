@@ -57,20 +57,11 @@ def fc_layer(_input ,out_feature , act_func='relu' , dropout='True' ):
     return layer
 
 
-
-
-
-    return output
-def fc_layer_to_clssses(_input , n_classes , is_training):
-    output = batch_norm(_input , is_training=is_training)
-    output = tf.nn.relu(output)
-    last_pool_kernel = int(output.get_shape()[-2])
-    output=avg_pool(output , k=last_pool_kernel)
-    features_total=int(output.get_shape()[-1])
-    output = tf.reshape(output, [-1, features_total])
-    W=weight_variable_xavier([features_total , n_classes] , name ='W')
+def fc_layer_to_clssses(_input , n_classes):
+    in_feature=int(_input.get_shape()[-1])
+    W=weight_variable_xavier([in_feature, n_classes] , name ='W')
     bias = bias_variable([n_classes])
-    logits=tf.matmul(output, W)+bias
+    logits=tf.matmul(_input, W)+bias
     return logits
 
 
@@ -106,7 +97,7 @@ def build_graph(x_ , y_ , is_training):
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
-    fc_out_features = [1024, n_classes]
+    fc_out_features = [1024]
 
 
     before_act_bn_mode = []
@@ -121,9 +112,17 @@ def build_graph(x_ , y_ , is_training):
             layer=tf.cond(is_training , lambda: tf.nn.dropout(layer , keep_prob=0.5) , lambda: layer)
             if i in after_act_bn_mode:
                 layer=batch_norm(layer, is_training)
+
+
+
     logits=tf.identity(layer , name= 'logits')
     print "logits's shape : {}".format(logits)
-    return logits
+
+    return  layer
+
+
+
+
 
 
 
