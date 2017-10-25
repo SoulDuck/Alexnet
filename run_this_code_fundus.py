@@ -67,7 +67,7 @@ for step in range(max_iter):
     print images
     tf.summary.image(name ='batch_xs',tensor=images)
     merged=tf.summary.merge_all()
-    summary=sess.run(merged , feed_dict=images)
+    summary=sess.run(merged , feed_dict={x_ : images})
     summary_writer.add_summary(summary , step)
     ####
 
