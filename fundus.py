@@ -230,14 +230,19 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
         test_labels = input.cls2onehot(test_labels, depth=n_classes)
     if not os.path.isdir('./type2'):
         os.mkdir('./type2')
+    count=0
     while True:
-        f_path='./type2/{}'.format(i)
+
+        f_path='./type2/{}'.format(count)
         if not os.path.isdir(f_path):
             os.mkdir(f_path)
+        else:
+            count+=1
+            break;
 
     np.save(os.path.join(f_path , 'train_imgs.npy') , train_images)
     np.save(os.path.join(f_path, 'train_labs.npy'), train_labels)
-    np.save(os.path.join(f_path, 'train_fnames.npy'), train_fnames)
+    np.save(os.path.join(f_path, 'train_fnames.npy'), train_filenames)
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
 if '__main__' == __name__:
