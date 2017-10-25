@@ -142,6 +142,91 @@ def type1(tfrecords_dir, onehot=True, resize=(299, 299)):
 
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
+def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random = True ):
+    # normal : 3000
+    # glaucoma : 1000
+    # retina : 1000
+    # cataract : 1000
+    train_images, train_labels, train_filenames = [], [], []
+    test_images, test_labels, test_filenames = [], [], []
 
-if '__main__' == __name__:
-    type1('./fundus_300')
+    names = ['normal_0', 'glaucoma', 'cataract', 'retina', 'cataract_glaucoma', 'retina_cataract', 'retina_glaucoma']
+    limits = [3000 , 1000 , 1000 , 1000]
+    for ind , name in enumerate(names):
+        for type in ['train', 'test']:
+            imgs, labs, fnames = reconstruct_tfrecord_rawdata(
+                tfrecord_path=tfrecords_dir + '/' + name + '_' + type + '.tfrecord', resize=resize)
+            print type, ' ', name
+            print 'image shape', np.shape(imgs)
+            print 'label shape', np.shape(labs)
+
+            if type =='train':
+                if random and ind < 4:
+                    print 'random shuffle On : {}'.format(name)
+                    random_indices=random.sample(range(len(labs)) , len(labs)) # normal , glaucoma , cataract , retina 만 random shuffle 을 한다
+                train_images.append(imgs[random_indices[:limits[ind]]]);
+                train_labels.append(labs[random_indices[:limits[ind]]]);
+                train_filenames.append(fnames[random_indices[:limits[ind]]]);
+
+            else :
+                test_images.append(imgs);
+                test_labels.append(labs);
+                test_filenames.append(fnames);
+    def _fn1(x, a, b):
+        x[a] = np.concatenate([x[a], x[b]], axis=0)  # cata_glau을  cata에 더한다
+        return x
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 1, 4),
+                                                      [train_images, train_labels, train_filenames])
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 1, 4), [test_images, test_labels, test_filenames])
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 2, 4),
+                                                      [train_images, train_labels, train_filenames])
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 2, 4), [test_images, test_labels, test_filenames])
+
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 2, 5),
+                                                      [train_images, train_labels, train_filenames])  # retina cataract을
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 2, 5), [test_images, test_labels, test_filenames])
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 3, 5),
+                                                      [train_images, train_labels, train_filenames])
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 3, 5), [test_images, test_labels, test_filenames])
+
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 1, 6),
+                                                      [train_images, train_labels, train_filenames])
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 1, 6), [test_images, test_labels, test_filenames])
+    train_images, train_labels, train_filenames = map(lambda x: _fn1(x, 3, 6),
+                                                      [train_images, train_labels, train_filenames])
+    test_images, test_labels, test_filenames = map(lambda x: _fn1(x, 3, 6), [test_images, test_labels, test_filenames])
+
+    for i in range(4):
+        print '#', np.shape(train_images[i])
+    for i in range(4):
+        print '#', np.shape(test_images[i])
+
+    train_labels = train_labels[:4]
+    train_filenames = train_filenames[:4]
+
+    test_images = test_images[:4]
+    test_labels = test_labels[:4]
+    test_filenames = test_filenames[:4]
+
+    train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = \
+        map(lambda x: np.concatenate([x[0], x[1], x[2], x[3]], axis=0), \
+            [train_images, train_labels, train_filenames, test_images, test_labels, test_filenames])
+
+    print 'train images ', np.shape(train_images)
+    print 'train labels ', np.shape(train_labels)
+    print 'train fnamess ', np.shape(train_filenames)
+    print 'test images ', np.shape(test_images)
+    print 'test labels ', np.shape(test_labels)
+    print 'test fnames ', np.shape(test_filenames)
+    n_classes = 2
+    if onehot:
+        train_labels = input.cls2onehot(train_labels, depth=n_classes)
+        test_labels = input.cls2onehot(test_labels, depth=n_classes)
+
+    return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
+
+
+    if '__main__' == __name__:
+        type2('./fundus_300')
+
+
