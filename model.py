@@ -188,7 +188,7 @@ def define_inputs(shape, n_classes):
         name='x_')
 
     labels = tf.placeholder(
-        tf.float32,
+        tf.int32,
         shape=[None, n_classes],
         name='y_')
 
