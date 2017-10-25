@@ -77,8 +77,8 @@ def build_graph(x_ , y_ , is_training):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
-    conv_out_features=[16,16,16,16,16   ]
-    conv_kernel_sizes=[5,5,5,3,3]
+    conv_out_features=[32,64,64,64,128]
+    conv_kernel_sizes=[7,5,5,3,3]
     conv_strides=[1,1,1,1,1]
     before_act_bn_mode = []
     after_act_bn_mode = []
@@ -141,6 +141,25 @@ def train_algorithm_momentum(logits, labels, learning_rate):
 
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, dtype=tf.float32), name='accuracy')
     return train_op, accuracy, cross_entropy, prediction
+
+def train_algorithm_adam(logits, labels, learning_rate , l2_loss):
+    prediction = tf.nn.softmax(logits, name='softmax')
+    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
+                                   name='cross_entropy')
+    optimizer = tf.train.AdamOptimizer(learning_rate)
+    if l2_loss:
+        l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables()], name='l2_loss')
+        weight_decay = 1e-4
+        train_op = optimizer.minimize(cross_entropy + l2_loss * weight_decay, name='train_op')
+    else :
+        train_op = optimizer.minimize(cross_entropy , name='train_op')
+    correct_prediction = tf.equal(
+        tf.argmax(prediction, 1),
+        tf.argmax(labels, 1), name='correct_prediction')
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, dtype=tf.float32), name='accuracy')
+    return train_op, accuracy, cross_entropy, prediction
+
+
 
 
 def define_inputs(shape, n_classes):
