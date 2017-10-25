@@ -58,6 +58,7 @@ def fc_layer(_input ,out_feature , act_func='relu' , dropout='True' ):
 
 
 def fc_layer_to_clssses(_input , n_classes):
+
     in_feature=int(_input.get_shape()[-1])
     W=weight_variable_xavier([in_feature, n_classes] , name ='W')
     bias = bias_variable([n_classes])
