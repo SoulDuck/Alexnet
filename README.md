@@ -18,6 +18,10 @@ fc_out_features = [1024,1024, n_classes]
 
 dropout fc layer = 0.5 
 
+optimizer Momentum with nesterov
+
+Loss = L2_loss * weight_decay(=0.9) + cross_entropy
+
 ![Alt_text](./readme_pic/acc_train.png)
 ![Alt_text](./readme_pic/loss_train.png)
 ![Alt_text](./readme_pic/acc_val.png)
