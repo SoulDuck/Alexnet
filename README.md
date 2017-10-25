@@ -54,9 +54,15 @@ allow_max_pool_indices=[0,1,4]
 
 Augmentation No
 
+
 Optimizer = GradientDescentOptimizer | learning rate 0.001 | L2_loss X
 
+
 ![Alt_text](readme_pic/fundus_0_result.png)
+
+![Alt_text](readme_pic/fundus_2_result.png)
+
+mac accuracy :79%
 
 Optimizer = ADAM | learning rate 0.001 | L2_loss X
 
