@@ -30,7 +30,7 @@ MNIST :0.99 | Fundus : No learning , same validation loss , and accuracy
 ![Alt_text](./readme_pic/loss_val.png)
 
 
-#fundus train
+## fundus train
 
 conv_out_features=[32,64,64,64,128]
 
