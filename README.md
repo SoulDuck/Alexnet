@@ -22,6 +22,8 @@ optimizer Momentum with nesterov
 
 Loss = L2_loss * weight_decay(=0.9) + cross_entropy
 
+MNIST :0.99 | Fundus : No learning , same validation loss , and accuracy 
+
 ![Alt_text](./readme_pic/acc_train.png)
 ![Alt_text](./readme_pic/loss_train.png)
 ![Alt_text](./readme_pic/acc_val.png)
