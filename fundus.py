@@ -162,9 +162,10 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
             print 'label shape', np.shape(labs)
 
             if type =='train':
+                random_indices = random.sample(range(len(labs)),
+                                               len(labs))  # normal , glaucoma , cataract , retina 만 random shuffle 을 한다
                 if random_shuffle and ind < 4:
                     print 'random shuffle On : {} limit : {}'.format(name , limits[ind])
-                    random_indices=random.sample(range(len(labs)) , len(labs)) # normal , glaucoma , cataract , retina 만 random shuffle 을 한다
                     limit =limits[ind]
                 else :
                     limit = None
