@@ -44,14 +44,15 @@ after_act_bn_mode = []
 
 fc_out_features = [1024,1024]
 
-Optimizer = GradientDescentOptimizer | learning rate 0.001 | L2_loss X
-
 Batch Size 80 
 
 Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000
 
 Label : single Label 
 
-
-
 allow_max_pool_indices=[0,1,4]
+
+Optimizer = GradientDescentOptimizer | learning rate 0.001 | L2_loss X
+
+
+Optimizer = ADAM | learning rate 0.001 | L2_loss X
