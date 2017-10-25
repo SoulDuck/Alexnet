@@ -1,6 +1,7 @@
 import cnn
 import tensorflow
 import numpy as np
+import aug
 import tensorflow as tf
 
 def dropout( _input , is_training , keep_prob=0.8):
@@ -66,7 +67,7 @@ def fc_layer_to_clssses(_input , n_classes):
     return logits
 
 
-def build_graph(x_ , y_ , is_training):
+def build_graph(x_ , y_ , is_training , aug_flag=False):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
@@ -77,6 +78,9 @@ def build_graph(x_ , y_ , is_training):
     after_act_bn_mode = []
     allow_max_pool_indices=[0,1,4]
 
+    if aug_flag:
+        x_=aug.aug_lv0(image_ = x_ , is_training=is_training , image_size=288)
+    print x_
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
     for i in range(len(conv_out_features)):

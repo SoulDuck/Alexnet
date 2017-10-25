@@ -4,10 +4,9 @@ import input
 import os
 import fundus
 import numpy as np
-import time
-import tensorflow as tf
+import aug
 resize=(288,288)
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=resize)
 #normalize
 
 print np.shape(test_labs)
@@ -60,7 +59,8 @@ for step in range(max_iter):
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
 
-    ####
+    #if you want to add pic to tensorboard  , uncommnet below line
+
     """
     images=tf.image.resize_bilinear(batch_xs ,size=resize)
     print images
@@ -70,6 +70,7 @@ for step in range(max_iter):
     summary_writer.add_summary(summary , step)
     ####
     """
+
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
