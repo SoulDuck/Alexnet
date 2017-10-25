@@ -36,7 +36,7 @@ for step in range(max_iter):
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
         for i in range(share): #여기서 테스트 셋을 sess.run()할수 있게 쪼갭니다
-            test_feedDict = { x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size],  is_training: False }
+            test_feedDict = { x_: test_imgs[i*batch_size:(i+1)*batch_size], y_: test_labs[i*batch_size:(i+1)*batch_size],  is_training: True }
             val_acc ,val_loss , pred = sess.run( fetches=test_fetches, feed_dict=test_feedDict )
             val_acc_mean.append(val_acc)
             val_loss_mean.append(val_loss)
@@ -44,7 +44,7 @@ for step in range(max_iter):
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
-        model.write_acc_loss( summary_writer, 'validation', loss=val_acc_mean, acc=val_loss_mean, step=step)
+        model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         saver.save(sess=sess,save_path='./models/fundus_300/model_{}'.format(step) , global_step=step)
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
