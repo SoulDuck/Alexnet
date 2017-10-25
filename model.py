@@ -105,7 +105,7 @@ def build_graph(x_ , y_ , is_training):
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
-    fc_out_features = [1024,1024, n_classes]
+    fc_out_features = [1024, n_classes]
 
 
     before_act_bn_mode = []
@@ -121,7 +121,8 @@ def build_graph(x_ , y_ , is_training):
             if i in after_act_bn_mode:
                 layer=batch_norm(layer, is_training)
     logits=tf.identity(layer , name= 'logits')
-    return layer
+    print "logits's shape : {}".format(logits)
+    return logits
 
 
 
