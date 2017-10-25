@@ -162,7 +162,7 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
 
             if type =='train':
                 if random_shuffle and ind < 4:
-                    print 'random shuffle On : {}'.format(name)
+                    print 'random shuffle On : {} limit : {}'.format(name , limits[ind])
                     random_indices=random.sample(range(len(labs)) , len(labs)) # normal , glaucoma , cataract , retina 만 random shuffle 을 한다
                 train_images.append(imgs[random_indices[:limits[ind]]]);
                 train_labels.append(labs[random_indices[:limits[ind]]]);
