@@ -4,6 +4,7 @@ import input
 import os
 import fundus
 import numpy as np
+import tensorflow as tf
 import aug
 resize=(288,288)
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
@@ -61,7 +62,7 @@ for step in range(max_iter):
 
     #if you want to add pic to tensorboard  , uncommnet below line
 
-    """
+
     images=tf.image.resize_bilinear(batch_xs ,size=resize)
     print images
     tf.summary.image(name ='batch_xs',tensor=images)
@@ -69,7 +70,7 @@ for step in range(max_iter):
     summary=sess.run(merged , feed_dict=images)
     summary_writer.add_summary(summary , step)
     ####
-    """
+
 
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
