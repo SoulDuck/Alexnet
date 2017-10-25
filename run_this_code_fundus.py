@@ -62,14 +62,15 @@ for step in range(max_iter):
 
     #if you want to add pic to tensorboard  , uncommnet below line
 
-
+    """
     images=tf.image.resize_bilinear(batch_xs ,size=resize)
     print images
     tf.summary.image(name ='batch_xs',tensor=images)
     merged=tf.summary.merge_all()
     summary=sess.run(merged , feed_dict={x_ : batch_xs})
     summary_writer.add_summary(summary , step)
-    ####
+    """
+
 
 
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
