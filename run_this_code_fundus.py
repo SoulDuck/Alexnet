@@ -17,6 +17,7 @@ if np.max(train_imgs) > 1:
 
 h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
+print 'the # classes : {} '.format(n_classes)
 
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
 logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training)
