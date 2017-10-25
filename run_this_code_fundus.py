@@ -10,8 +10,8 @@ train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.
 #normalize
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
-    train_imgs=train_imgs/255.
-    test_imgs=test_imgs/255.
+    train_imgs=train_imgs
+    test_imgs=test_imgs
     print 'train_imgs max :',np.max(train_imgs)
     print 'test_imgs max :', np.max(test_imgs)
 
