@@ -116,11 +116,9 @@ def build_graph(x_ , y_ , is_training):
 
 
     logits=fc_layer_to_clssses(layer , n_classes)
-
     logits=tf.identity(layer , name= 'logits')
     print "logits's shape : {}".format(logits)
-
-    return  layer
+    return  logits
 
 
 
