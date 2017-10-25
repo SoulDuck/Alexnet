@@ -2,7 +2,7 @@
 import tensorflow as tf
 import numpy as np
 import input
-
+import random
 
 def reconstruct_tfrecord_rawdata(tfrecord_path, resize=(299, 299)):
     print 'now Reconstruct Image Data please wait a second'
