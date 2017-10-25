@@ -55,6 +55,7 @@ for step in range(max_iter):
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
+        print 'Train acc : {} loss : {}'.format(train_acc, train_loss)
         model.write_acc_loss( summary_writer, 'validation', loss=val_acc_mean, acc=val_loss_mean, step=step)
         saver.save(sess=sess,save_path='./models/mnist/model' , global_step=step)
     """ #### training ### """
