@@ -67,3 +67,5 @@ mac accuracy :79%
 Optimizer = ADAM | learning rate 0.001 | L2_loss X
 
 ![Alt_text](readme_pic/fundus_1_result.png)
+
+![Alt_text](readme_pic/fundus_3_result.png)
