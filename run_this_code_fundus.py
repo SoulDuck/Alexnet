@@ -57,10 +57,10 @@ for step in range(max_iter):
     print images
     tf.summary.image(name ='batch_xs',tensor=images)
     merged=tf.summary.merge_all()
+    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.1, is_training: True}
     summary=sess.run(merged , feed_dict=train_feedDict)
     summary_writer.add_summary(summary , step)
     ####
-    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.1, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
     model.write_acc_loss(summary_writer ,'train' , loss= train_loss , acc=train_acc  ,step= step)
