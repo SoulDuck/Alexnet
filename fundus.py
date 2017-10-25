@@ -226,7 +226,7 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random = True ):
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
 
-    if '__main__' == __name__:
-        type2('./fundus_300')
+if '__main__' == __name__:
+    type2('./fundus_300')
 
 
