@@ -98,7 +98,7 @@ def build_graph(x_ , y_ , is_training):
     end_conv_layer=layer
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
-    fc_out_features = [1024]
+    fc_out_features = [1024,1024]
 
 
     before_act_bn_mode = []
@@ -115,6 +115,7 @@ def build_graph(x_ , y_ , is_training):
                 layer=batch_norm(layer, is_training)
 
 
+    logits=fc_layer_to_clssses(layer , n_classes)
 
     logits=tf.identity(layer , name= 'logits')
     print "logits's shape : {}".format(logits)
