@@ -114,9 +114,9 @@ def build_graph(x_ , y_ , is_training):
             if i in after_act_bn_mode:
                 layer=batch_norm(layer, is_training)
 
-
+    print n_classes
     logits=fc_layer_to_clssses(layer , n_classes)
-    logits=tf.identity(layer , name= 'logits')
+    logits=tf.identity(logits , name= 'logits')
     print "logits's shape : {}".format(logits)
     return  logits
 
