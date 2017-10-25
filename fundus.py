@@ -142,7 +142,7 @@ def type1(tfrecords_dir, onehot=True, resize=(299, 299)):
 
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
-def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random = True ):
+def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True ):
     # normal : 3000
     # glaucoma : 1000
     # retina : 1000
@@ -161,7 +161,7 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random = True ):
             print 'label shape', np.shape(labs)
 
             if type =='train':
-                if random and ind < 4:
+                if random_shuffle and ind < 4:
                     print 'random shuffle On : {}'.format(name)
                     random_indices=random.sample(range(len(labs)) , len(labs)) # normal , glaucoma , cataract , retina 만 random shuffle 을 한다
                 train_images.append(imgs[random_indices[:limits[ind]]]);
