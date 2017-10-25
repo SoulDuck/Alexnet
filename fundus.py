@@ -172,7 +172,6 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
                 train_images.append(imgs[random_indices[:limit]]);
                 train_labels.append(labs[random_indices[:limit]]);
                 train_filenames.append(fnames[random_indices[:limit]]);
-
             else :
                 test_images.append(imgs);
                 test_labels.append(labs);
@@ -229,7 +228,6 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
         test_labels = input.cls2onehot(test_labels, depth=n_classes)
 
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
-
 
 if '__main__' == __name__:
     type2('./fundus_300')
