@@ -3,6 +3,7 @@ import model
 import input
 import os
 import fundus
+import time
 import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
@@ -41,8 +42,13 @@ max_iter=2000000
 ckpt=100
 batch_size=80
 share=len(test_labs)/batch_size
+start_time=0
+train_acc=0
+train_val=0
 for step in range(max_iter):
+
     if step % ckpt==0:
+        print "{} step  , time : {}".format(step , (time.time() - start_time))
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
@@ -58,6 +64,8 @@ for step in range(max_iter):
         print 'Train acc : {} loss : {}'.format(train_acc, train_loss)
         model.write_acc_loss( summary_writer, 'validation', loss=val_acc_mean, acc=val_loss_mean, step=step)
         saver.save(sess=sess,save_path='./models/mnist/model' , global_step=step)
+        start_time = time.time()
+
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)

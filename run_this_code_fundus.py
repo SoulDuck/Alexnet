@@ -4,10 +4,12 @@ import input
 import os
 import fundus
 import numpy as np
+import time
 import tensorflow as tf
 resize=(288,288)
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
 #normalize
+
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
     train_imgs=train_imgs/255.
@@ -24,7 +26,6 @@ logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training)
 train_op, accuracy_op , loss_op , pred_op =model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=False)
 #train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
 sess, saver , summary_writer =model.sess_start('./logs/fundus_300')
-
 if not os.path.isdir('./models'):
     os.mkdir('./models')
 
@@ -32,7 +33,13 @@ max_iter=2000000
 ckpt=100
 batch_size=80
 
+start_time=0
+train_acc=0
+train_val=0
+
 share=len(test_labs)/batch_size
+remainder=len(test_labs)/batch_size
+
 for step in range(max_iter):
     if step % ckpt==0:
         """ #### testing ### """
@@ -48,7 +55,7 @@ for step in range(max_iter):
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
-        saver.save(sess=sess,save_path='./models/fundus_300/model_{}'.format(step) , global_step=step)
+        saver.save(sess=sess,save_path='./models/fundus_300/model_{}'.format(step))
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
@@ -63,7 +70,7 @@ for step in range(max_iter):
     summary_writer.add_summary(summary , step)
     ####
     """
-    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.1, is_training: True}
+    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
     model.write_acc_loss(summary_writer ,'train' , loss= train_loss , acc=train_acc  ,step= step)
