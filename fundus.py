@@ -43,7 +43,7 @@ def reconstruct_tfrecord_rawdata(tfrecord_path, resize=(299, 299)):
         w_diff = w - resize[1]
         ret_imgs = ret_imgs[:, h_diff / 2: h_diff / 2 + resize[0], w_diff / 2: w_diff / 2 + resize[1], :]
     ret_labs = np.asarray(ret_lab_list)
-
+    ret_imgs = np.asarray(ret_imgs)
     return ret_imgs, ret_labs, ret_fnames
 
 def type1(tfrecords_dir, onehot=True, resize=(299, 299)):
