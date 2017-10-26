@@ -48,9 +48,9 @@ while True:
 
 
 
-max_iter=100000
-ckpt=100
-batch_size=80
+max_iter=2
+ckpt=1
+batch_size=2
 start_time=0
 train_acc=0
 train_val=0
@@ -75,7 +75,7 @@ for step in range(max_iter):
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
 
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
-        saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
+        saver.save(sess=sess,save_path=os.path.join(model_path,'model_{}'.format(step)))
 
         """image augmentation debug code"""
         """
