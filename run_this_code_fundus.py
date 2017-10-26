@@ -61,10 +61,14 @@ for step in range(max_iter):
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
         #image debug
         tf.summary.image(name='ori_images', tensor=x_)
-        tf.summary.image(name='aug_images', tensor=aug_images)
+        tf.summary.image(name='aug_images_train', tensor=aug_images)
+        tf.summary.image(name='aug_images_test', tensor=aug_images)
         merged = tf.summary.merge_all()
-        summary = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
-        summary_writer.add_summary(summary, step)
+        summary_train = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
+        summary_test = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: False})
+        summary_writer.add_summary(summary_train, step)
+        summary_writer.add_summary(summary_test, step)
+
 
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
