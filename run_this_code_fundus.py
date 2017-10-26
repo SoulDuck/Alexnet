@@ -42,7 +42,7 @@ remainder=len(test_labs)/batch_size
 
 for step in range(max_iter):
     if step % ckpt==0:
-        aug_images=tf.get_default_graph().get_tensor_by_name('image_aug_op')
+        aug_images=tf.get_default_graph().get_tensor_by_name('aug_:0')
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
