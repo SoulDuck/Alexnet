@@ -42,6 +42,7 @@ remainder=len(test_labs)/batch_size
 
 for step in range(max_iter):
     if step % ckpt==0:
+
         aug_images=tf.get_default_graph().get_tensor_by_name('aug_:0')
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
@@ -67,6 +68,7 @@ for step in range(max_iter):
 
 
     print aug_images
+    tf.summary.image(name='ori_images' , tensor=x_ )
     tf.summary.image(name ='aug_images',tensor=aug_images)
     merged=tf.summary.merge_all()
     summary=sess.run(merged , feed_dict={x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True})
