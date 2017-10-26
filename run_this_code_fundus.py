@@ -60,6 +60,7 @@ for step in range(max_iter):
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
 
         """image augmentation debug code"""
+        """
         aug_images_train = tf.get_default_graph().get_tensor_by_name('aug_:0')
         tf.summary.image(name='ori_images', tensor=x_)
         tf.summary.image(name='aug_images_train', tensor=aug_images_train)
@@ -73,9 +74,11 @@ for step in range(max_iter):
         print np.shape(summary_test)
         print np.save('test_images.npy', summary_test)
         summary_writer.add_summary(summary_test, step)
+        """
 
 
     """ #### training ### """
+
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
