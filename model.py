@@ -80,7 +80,8 @@ def build_graph(x_ , y_ , is_training , aug_flag=True):
 
     if aug_flag:
         print 'aug : True'
-        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training, image_size=288) , x_ ,name='image_aug_op')
+        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training, image_size=288) , x_ )
+        x_=tf.identity(x_, name='aug_')
     print x_
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_
