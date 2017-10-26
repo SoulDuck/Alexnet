@@ -63,7 +63,7 @@ for step in range(max_iter):
         tf.summary.image(name='ori_images', tensor=x_)
         tf.summary.image(name='aug_images', tensor=aug_images)
         merged = tf.summary.merge_all()
-        summary = sess.run(merged, feed_dict={x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True})
+        summary = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
         summary_writer.add_summary(summary, step)
 
     """ #### training ### """
