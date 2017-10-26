@@ -7,7 +7,7 @@ import numpy as np
 import tensorflow as tf
 import aug
 resize=(288,288)
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=resize)
 #normalize
 
 print np.shape(test_labs)
@@ -19,20 +19,38 @@ if np.max(train_imgs) > 1:
 
 h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
-print 'the # classes : {} '.format(n_classes)
+print 'the # classes : {}'.format(n_classes)
 
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
 logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training)
 train_op, accuracy_op , loss_op , pred_op =model.train_algorithm_adam(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=False)
 #train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
-sess, saver , summary_writer =model.sess_start('./logs/fundus_300')
-if not os.path.isdir('./models'):
-    os.mkdir('./models')
+log_count =0;
+while True:
+    logs_path='./logs/fundus_300/{}'.format(log_count)
+    if not os.path.isdir(logs_path):
+        os.mkdir(logs_path)
+        break;
+    else:
+        log_count+=1
 
-max_iter=1000000
-ckpt=100
-batch_size=80
+sess, saver , summary_writer =model.sess_start(logs_path)
 
+
+model_count =0;
+while True:
+    model_path='./models/fundus_300/{}'.format(model_count)
+    if not os.path.isdir(model_path):
+        os.mkdir(model_path)
+        break;
+    else:
+        model_count+=1
+
+
+
+max_iter=2
+ckpt=1
+batch_size=3
 start_time=0
 train_acc=0
 train_val=0
