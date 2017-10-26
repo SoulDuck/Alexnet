@@ -59,21 +59,16 @@ for step in range(max_iter):
 
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
+        #image debug
+        tf.summary.image(name='ori_images', tensor=x_)
+        tf.summary.image(name='aug_images', tensor=aug_images)
+        merged = tf.summary.merge_all()
+        summary = sess.run(merged, feed_dict={x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True})
+        summary_writer.add_summary(summary, step)
+
     """ #### training ### """
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
-
-    #if you want to add pic to tensorboard  , uncommnet below line
-
-
-
-    print aug_images
-    tf.summary.image(name='ori_images' , tensor=x_ )
-    tf.summary.image(name ='aug_images',tensor=aug_images)
-    merged=tf.summary.merge_all()
-    summary=sess.run(merged , feed_dict={x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True})
-    summary_writer.add_summary(summary , step)
-
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
