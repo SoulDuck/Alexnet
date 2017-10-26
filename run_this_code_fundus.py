@@ -48,7 +48,7 @@ while True:
 
 
 
-max_iter=100
+max_iter=80000
 ckpt=100
 batch_size=80
 start_time=0
