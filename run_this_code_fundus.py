@@ -69,11 +69,8 @@ for step in range(max_iter):
     print aug_images
     tf.summary.image(name ='aug_images',tensor=aug_images)
     merged=tf.summary.merge_all()
-    summary=sess.run(merged , feed_dict={x_ : batch_xs})
+    summary=sess.run(merged , feed_dict={x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True})
     summary_writer.add_summary(summary , step)
-
-
-
 
     train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
