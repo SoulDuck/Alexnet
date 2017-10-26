@@ -66,6 +66,7 @@ for step in range(max_iter):
         merged = tf.summary.merge_all()
         summary_train = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
 
+        aug_images = tf.get_default_graph().get_tensor_by_name('aug_:0')
         summary_writer.add_summary(summary_train, step)
         tf.summary.image(name='aug_images_test', tensor=aug_images)
         merged = tf.summary.merge_all()
