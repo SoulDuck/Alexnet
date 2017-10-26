@@ -14,7 +14,6 @@ def aug_lv0(image_ , is_training , image_size):
         image = tf.image.random_brightness(image, max_delta=63. / 255.)
         image = tf.image.random_saturation(image, lower=0.5, upper=1.8)
         image = tf.image.per_image_standardization(image)
-        image=tf.identity(image ,name='image_augmented')
         return image
 
     def aug_with_test(image , image_size):
@@ -24,7 +23,7 @@ def aug_lv0(image_ , is_training , image_size):
         return image
 
     image=tf.cond(is_training , lambda : aug_with_train(image_ , image_size=image_size)  , \
-                  lambda  : aug_with_test(image_ , image_size=image_size) ,)
+                  lambda  : aug_with_test(image_ , image_size=image_size) )
 
 
     return image
