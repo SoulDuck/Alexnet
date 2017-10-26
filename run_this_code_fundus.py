@@ -29,7 +29,7 @@ sess, saver , summary_writer =model.sess_start('./logs/fundus_300')
 if not os.path.isdir('./models'):
     os.mkdir('./models')
 
-max_iter=2000000
+max_iter=1000000
 ckpt=100
 batch_size=80
 

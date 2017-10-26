@@ -235,9 +235,10 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
         f_path='./type2/{}'.format(count)
         if not os.path.isdir(f_path):
             os.mkdir(f_path)
-        else:
-            count+=1
             break;
+        else:
+            count += 1
+
 
     np.save(os.path.join(f_path , 'train_imgs.npy') , train_images)
     np.save(os.path.join(f_path, 'train_labs.npy'), train_labels)
@@ -245,6 +246,6 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
 if '__main__' == __name__:
-    type2('./fundus_300')
+    type2('./fundus_300_debug')
 
 
