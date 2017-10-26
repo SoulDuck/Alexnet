@@ -67,7 +67,7 @@ def fc_layer_to_clssses(_input , n_classes):
     return logits
 
 
-def build_graph(x_ , y_ , is_training , aug_flag=False):
+def build_graph(x_ , y_ , is_training , aug_flag=True):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
