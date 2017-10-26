@@ -19,7 +19,7 @@ def aug_lv0(image_ , is_training , image_size):
         image = tf.image.per_image_standardization(image)
         return image
 
-    image=tf.cond(is_training , lambda image  : aug_with_train(image_ , image_size=image_size)  , \
-                  lambda image : aug_with_test(image_ , image_size=image_size))
+    image=tf.cond(is_training , lambda : aug_with_train(image_ , image_size=image_size)  , \
+                  lambda image : aug_with_test(image_ , image_size=image_size) ,)
     return image
 
