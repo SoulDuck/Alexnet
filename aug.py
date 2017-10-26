@@ -18,8 +18,8 @@ def aug_lv0(image_ , is_training , image_size):
 
     def aug_with_test(image , image_size):
 
-        #image = tf.image.resize_image_with_crop_or_pad(image, image_size, image_size)
-        #image = tf.image.per_image_standardization(image)
+        image = tf.image.resize_image_with_crop_or_pad(image, image_size, image_size)
+        image = tf.image.per_image_standardization(image)
         return image
 
     image=tf.cond(is_training , lambda : aug_with_train(image_ , image_size=image_size)  , \
