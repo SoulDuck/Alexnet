@@ -70,6 +70,7 @@ for step in range(max_iter):
         aug_images_test = tf.get_default_graph().get_tensor_by_name('aug_:0')
         tf.summary.image(name='aug_images_test', tensor=aug_images_test)
         summary_test = sess.run(aug_images_test, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: False})
+        print np.shape(summary_test)
         summary_writer.add_summary(summary_test, step)
 
 
