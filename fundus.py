@@ -232,7 +232,6 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
         os.mkdir('./type2')
     count=0
     while True:
-
         f_path='./type2/{}'.format(count)
         if not os.path.isdir(f_path):
             os.mkdir(f_path)
