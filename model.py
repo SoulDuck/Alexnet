@@ -105,30 +105,37 @@ def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
 
     end_conv_layer=tf.identity(layer , name='top_conv')
     layer = tf.contrib.layers.flatten(end_conv_layer)
+    print "num of Classes : ",n_classes
+    logits_gap=cnn.gap('gap' , end_conv_layer, n_classes)
+    cam_ = cam.get_class_map('gap', end_conv_layer, 0, image_size)
+
+
+    ##### define fully connected layer #######
+    fc_out_features = [1024,1024]
+    before_act_bn_mode = []
+    after_act_bn_mode = []
+    for i in range(len(fc_out_features)):
+        with tf.variable_scope('fc_{}'.format(str(i))) as scope:
+            if i in before_act_bn_mode:
+                print 'batch normalization {}'.format(i)
+                layer=batch_norm(layer , is_training)
+            layer=fc_with_bias(layer , fc_out_features[i] )
+            layer=tf.nn.relu(layer)
+            layer=tf.cond(is_training , lambda: tf.nn.dropout(layer , keep_prob=0.5) , lambda: layer)
+            if i in after_act_bn_mode:
+                layer=batch_norm(layer, is_training)
+
+    print n_classes
+    logits_fc=fc_layer_to_clssses(layer , n_classes)
+
+
     if actmap_flag:
-        print "fully connected layer --> Global Average Pooling"
-        print "num of Classes : ",n_classes
-        logits=cnn.gap('gap' , end_conv_layer, n_classes)
-        cam_ = cam.get_class_map('gap', end_conv_layer, 0, image_size)
-
+        print "logits from Global Average Pooling , No Fully Connected layer "
+        logits=logits_gap
     else:
-        ##### define fully connected layer #######
-        fc_out_features = [1024,1024]
-        before_act_bn_mode = []
-        after_act_bn_mode = []
-        for i in range(len(fc_out_features)):
-            with tf.variable_scope('fc_{}'.format(str(i))) as scope:
-                if i in before_act_bn_mode:
-                    print 'batch normalization {}'.format(i)
-                    layer=batch_norm(layer , is_training)
-                layer=fc_with_bias(layer , fc_out_features[i] )
-                layer=tf.nn.relu(layer)
-                layer=tf.cond(is_training , lambda: tf.nn.dropout(layer , keep_prob=0.5) , lambda: layer)
-                if i in after_act_bn_mode:
-                    layer=batch_norm(layer, is_training)
+        print "logits from fully connected layer "
+        logits = logits_fc
 
-        print n_classes
-        logits=fc_layer_to_clssses(layer , n_classes)
     logits=tf.identity(logits , name= 'logits')
     print "logits's shape : {}".format(logits)
     return  logits
