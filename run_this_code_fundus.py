@@ -7,7 +7,7 @@ import numpy as np
 import tensorflow as tf
 import aug
 resize=(288,288)
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=resize)
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
 #normalize
 
 print np.shape(test_labs)
@@ -22,7 +22,7 @@ n_classes=np.shape(train_labs)[-1]
 print 'the # classes : {}'.format(n_classes)
 
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=True , actmap_flag=True)
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=True , actmap_flag=False)
 train_op, accuracy_op , loss_op , pred_op =model.train_algorithm_adam(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=False)
 #train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
 log_count =0;
@@ -48,9 +48,9 @@ while True:
 
 
 
-max_iter=2
-ckpt=1
-batch_size=2
+max_iter=70000
+ckpt=100
+batch_size=80
 start_time=0
 train_acc=0
 train_val=0
@@ -59,8 +59,15 @@ share=len(test_labs)/batch_size
 remainder=len(test_labs)/batch_size
 
 for step in range(max_iter):
+    #### learning rate schcedule
+    if step  < 30000:
+        learning_rate = 0.001
+    elif step < 50000:
+        learning_rate = 0.0001
+    else:
+        learning_rate = 0.00001
+    ####
     if step % ckpt==0:
-
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
@@ -99,7 +106,7 @@ for step in range(max_iter):
 
     train_fetches = [train_op, accuracy_op, loss_op]
     batch_xs, batch_ys, batch_fs = input.next_batch(batch_size, train_imgs, train_labs, train_fnames)
-    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: 0.001, is_training: True}
+    train_feedDict = {x_: batch_xs, y_: batch_ys, lr_: learning_rate, is_training: True}
     _ , train_acc, train_loss = sess.run( fetches=train_fetches, feed_dict=train_feedDict )
     #print 'train acc : {} loss : {}'.format(train_acc, train_loss)
     model.write_acc_loss(summary_writer ,'train' , loss= train_loss , acc=train_acc  ,step= step)

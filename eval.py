@@ -45,10 +45,5 @@ try:
 except Exception as e :
     print e
     pass
-pred_=azqw fdeew=\]\[']=]=0[\
-
-=]\
-    ]-0-
--0]\
-    sess.run(pred_ , feed_dict={x_ : test_images[:1],is_training_:False})
+pred = sess.run(pred_ , feed_dict={x_ : test_images[:1],is_training_:False})
 print pred_
