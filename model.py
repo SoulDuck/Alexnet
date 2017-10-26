@@ -67,7 +67,7 @@ def fc_layer_to_clssses(_input , n_classes):
     return logits
 
 
-def build_graph(x_ , y_ , is_training , aug_flag=True):
+def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
 
@@ -101,10 +101,11 @@ def build_graph(x_ , y_ , is_training , aug_flag=True):
             #layer=tf.nn.dropout(layer , keep_prob=conv_keep_prob)
             layer=tf.cond(is_training , lambda :  tf.nn.dropout(layer ,  keep_prob=1.0)  , lambda : layer)
 
-    end_conv_layer=layer
+    end_conv_layer=tf.identity(layer , name='top_conv')
     layer = tf.contrib.layers.flatten(end_conv_layer)
     ##### define fully connected layer #######
     fc_out_features = [1024,1024]
+
 
 
     before_act_bn_mode = []
