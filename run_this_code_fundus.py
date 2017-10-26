@@ -65,12 +65,11 @@ for step in range(max_iter):
         tf.summary.image(name='aug_images_train', tensor=aug_images_train)
         merged = tf.summary.merge_all()
         summary_train = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
+        summary_writer.add_summary(summary_train, step)
 
         aug_images_test = tf.get_default_graph().get_tensor_by_name('aug_:0')
-        summary_writer.add_summary(summary_train, step)
         tf.summary.image(name='aug_images_test', tensor=aug_images_test)
-        merged = tf.summary.merge_all()
-        summary_test = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: False})
+        summary_test = sess.run(aug_images_test, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: False})
         summary_writer.add_summary(summary_test, step)
 
 
