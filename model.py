@@ -79,7 +79,7 @@ def build_graph(x_ , y_ , is_training , aug_flag=True):
     allow_max_pool_indices=[0,1,4]
 
     if aug_flag:
-        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training,image_size=288) , x_ ,name='image_augmented')
+        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training, image_size=288) , x_ ,name='image_aug_op')
     print x_
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
     layer=x_

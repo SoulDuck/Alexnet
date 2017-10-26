@@ -42,6 +42,7 @@ remainder=len(test_labs)/batch_size
 
 for step in range(max_iter):
     if step % ckpt==0:
+        aug_images=tf.get_default_graph().get_tensor_by_name('image_aug_op:0')
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
         val_acc_mean , val_loss_mean , pred_all = [] , [] , []
@@ -54,6 +55,7 @@ for step in range(max_iter):
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
+
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
     """ #### training ### """
@@ -63,9 +65,9 @@ for step in range(max_iter):
     #if you want to add pic to tensorboard  , uncommnet below line
 
     """
-    images=tf.image.resize_bilinear(batch_xs ,size=resize)
-    print images
-    tf.summary.image(name ='batch_xs',tensor=images)
+    #images=tf.image.resize_bilinear(batch_xs ,size=resize)
+    print aug_images
+    tf.summary.image(name ='augmented_images',tensor=aug_images)
     merged=tf.summary.merge_all()
     summary=sess.run(merged , feed_dict={x_ : batch_xs})
     summary_writer.add_summary(summary , step)
