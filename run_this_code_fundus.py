@@ -58,7 +58,8 @@ for step in range(max_iter):
 
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
-        #image debug
+
+        """image augmentation debug code"""
         tf.summary.image(name='ori_images', tensor=x_)
         tf.summary.image(name='aug_images_train', tensor=aug_images)
         merged = tf.summary.merge_all()
