@@ -53,15 +53,17 @@ def eval_inspect_cam(sess, cam , top_conv ,test_imgs, num_images , x, y_ ,phase_
 
     try:
         os.mkdir('./out');
-    except Exception:
+    except Exception as e :
+        print e
         pass;
 
     for s in range(num_images):
         save_dir='./out/img_{}'.format(s)
         try:os.mkdir(save_dir);
-        except Exception:pass;
+        except Exception as e :
+            print e;
         if __debug__ ==True:
-            print test_imgs[s].shape
+            print 'test imgs shape : ',test_imgs[s].shape
         if test_imgs[s].shape[-1]==1:
             plt.imsave('{}/image_test.png'.format(save_dir) ,test_imgs[s].reshape([test_imgs[s].shape[0] , test_imgs.shape[1]]))
         else :
