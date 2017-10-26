@@ -60,15 +60,15 @@ for step in range(max_iter):
         saver.save(sess=sess,save_path='./models/fundus_300/',latest_filename='model_{}.ckpt'.format(step))
 
         """image augmentation debug code"""
-        aug_images = tf.get_default_graph().get_tensor_by_name('aug_:0')
+        aug_images_train = tf.get_default_graph().get_tensor_by_name('aug_:0')
         tf.summary.image(name='ori_images', tensor=x_)
-        tf.summary.image(name='aug_images_train', tensor=aug_images)
+        tf.summary.image(name='aug_images_train', tensor=aug_images_train)
         merged = tf.summary.merge_all()
         summary_train = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: True})
 
-        aug_images = tf.get_default_graph().get_tensor_by_name('aug_:0')
+        aug_images_test = tf.get_default_graph().get_tensor_by_name('aug_:0')
         summary_writer.add_summary(summary_train, step)
-        tf.summary.image(name='aug_images_test', tensor=aug_images)
+        tf.summary.image(name='aug_images_test', tensor=aug_images_test)
         merged = tf.summary.merge_all()
         summary_test = sess.run(merged, feed_dict={x_: test_imgs[:3], y_: test_labs[:3], lr_: 0.001, is_training: False})
         summary_writer.add_summary(summary_test, step)
