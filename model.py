@@ -127,8 +127,6 @@ def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
 
     print n_classes
     logits_fc=fc_layer_to_clssses(layer , n_classes)
-
-
     if actmap_flag:
         print "logits from Global Average Pooling , No Fully Connected layer "
         logits=logits_gap
