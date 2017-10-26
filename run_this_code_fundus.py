@@ -48,9 +48,9 @@ while True:
 
 
 
-max_iter=2
-ckpt=1
-batch_size=3
+max_iter=100000
+ckpt=100
+batch_size=80
 start_time=0
 train_acc=0
 train_val=0
