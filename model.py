@@ -184,6 +184,7 @@ def train_algorithm_grad(logits, labels, learning_rate , l2_loss):
                                    name='cross_entropy')
     optimizer = tf.train.GradientDescentOptimizer(learning_rate)
     if l2_loss:
+        print 'l2 loss applied'
         l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables()], name='l2_loss')
         weight_decay = 1e-4
         train_op = optimizer.minimize(cross_entropy + l2_loss * weight_decay, name='train_op')
