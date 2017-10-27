@@ -1,3 +1,8 @@
+import matplotlib.pyplot
+if "DISPLAY" not in os.environ:
+    # remove Travis CI Error
+    matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
