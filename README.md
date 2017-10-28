@@ -21,7 +21,9 @@ Label : single Label
 
 allow_max_pool_indices=[0,1,4]
 
-Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
+Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No 
+
+[googlelink]: https://google.com "Go google"
 
 ![Alt_text](readme_pic/fundus_0_result.png)
 
