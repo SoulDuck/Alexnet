@@ -1,4 +1,5 @@
 # Alexnet
+
 ## Fundus Classification 
 
 conv_out_features=[32,64,64,64,128]
@@ -23,16 +24,17 @@ allow_max_pool_indices=[0,1,4]
 
 Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
 
-[show more info](https://www.youtube.com/watch?v=WPVA9tJMZWQ)
+[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/fundus_0_2_result.md)
 
 ![Alt_text](readme_pic/fundus_0_result.png)
 
-![Alt_text](readme_pic/fundus_2_result.png)
 max accuracy :79%
 
 Optimizer = ADAM | learning rate 0.001 | L2_loss X
 
 ![Alt_text](readme_pic/fundus_1_result.png)
+
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/fundus_0_2_result.md)
 
 ![Alt_text](readme_pic/fundus_3_result.png)
 
