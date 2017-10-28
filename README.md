@@ -32,6 +32,8 @@ max accuracy :79%
 #### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation No
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/fundus_0_2_result.md)
 
+accuracy 75%
+
 ![Alt_text](readme_pic/fundus_1_result.png)
 
 
