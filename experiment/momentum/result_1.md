@@ -21,12 +21,28 @@ Label : single Label
 
 allow_max_pool_indices=[0,1,4]
 
-Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
+Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation yes
 
 
-![Alt_text](../../readme_pic/fundus_0_result.png)
+![Alt_text](../../readme_pic/fundus_6_0_result.png)
 
-![Alt_text](../../readme_pic/fundus_2_result.png)
+![Alt_text](../../readme_pic/fundus_6_1_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_2_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_3_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_4_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_5_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_6_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_7_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_8_result.png)
+
+![Alt_text](../../readme_pic/fundus_6_9_result.png)
 
 
 
