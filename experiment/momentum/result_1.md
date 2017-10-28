@@ -29,7 +29,7 @@ Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augm
 
 ![Alt_text](../../readme_pic/fundus_6_6_result.png)
 
-![Alt_text](../../readme_pic/fundus_6_7_result.png)
+![Alt_text](../../readme_pic/fundus_6_7_result_.png)
 
 ![Alt_text](../../readme_pic/fundus_6_8_result.png)
 
