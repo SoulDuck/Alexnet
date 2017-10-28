@@ -23,6 +23,14 @@ max accuracy :79%
 
 ![Alt_text](readme_pic/fundus_0_result.png)
 
+#### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes
+[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_1.md)
+
+max accuracy :79%
+
+![Alt_text](readme_pic/fundus_6_0_result.png)
+
+
 #### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation No
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_0.md)
 
