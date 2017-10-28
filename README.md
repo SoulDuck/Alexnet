@@ -23,7 +23,6 @@ Label : single Label
 allow_max_pool_indices=[0,1,4]
 
 #### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
-
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/fundus_0_2_result.md)
 
 max accuracy :79%
@@ -31,17 +30,19 @@ max accuracy :79%
 ![Alt_text](readme_pic/fundus_0_result.png)
 
 #### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation No
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/fundus_0_2_result.md)
 
 ![Alt_text](readme_pic/fundus_1_result.png)
 
-[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/fundus_0_2_result.md)
+
 
 
 #### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation Yes 
-
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/fundus_0_2_result.md)
+ 
 accuracy 81%
+
 ![Alt_text](readme_pic/fundus_4_result.png)
 
-accuracy 78%
-![Alt_text](readme_pic/fundus_5_result.png)
+
 
