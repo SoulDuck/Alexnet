@@ -7,32 +7,32 @@ import numpy as np
 import argparse
 import tensorflow as tf
 import aug
-resize=(299,299)
+
 parser =argparse.ArgumentParser()
-parser.add_argment('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
-parser.add_argment('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
-parser.add_argment('--augmentataion' ,'-aug', type=bool , help='augmentation')
-parser.add_argment('--logits', type=str , choices=['fc' , 'gap'])
-parser.add_argment('--random_crop_resize' , type=bool , help='if you use random crop resize , you can choice randdom crop ')
-parser.add_argment('--batch_size' '-b' , type=int , help='batch size')
-parser.add_argment('--max_iter' '-i' , type=int , help='iteration')
+parser.add_argument('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
+parser.add_argument('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
+parser.add_argument('--augmentation' ,'-aug', type=bool , help='augmentation')
+parser.add_argument('--actmap', type=bool)
+parser.add_argument('--random_crop_resize' , type=bool , help='if you use random crop resize , you can choice randdom crop ')
+parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
+aparser.add_argument('--max_iter', '-i' , type=int , help='iteration')
+parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
 args=parser.parse_args()
 
-print args.optimizer
-print args.use_nesterov
-print args.augmentation
-print args.logits
-print args.random_crop_resize
-print args.batch_size
-print args.max_iter
+print 'optimizer : ', args.optimizer
+print 'use nesterov : ',args.use_nesterov
+print 'augmentation : ',args.augmentation
+print 'actmap : ' , args.actmap
+print 'random crop size : ',args.random_crop_resize
+print 'l2 loss: ',args.l2_loss
+print 'batch size : ',args.batch_size
+print 'max iter  : ',args.max_iter
 
 
-
-
-
+resize=(299,299)
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
-#normalize
 
+#normalize
 print np.shape(test_labs)
 if np.max(train_imgs) > 1:
     train_imgs=train_imgs/255.
@@ -40,22 +40,23 @@ if np.max(train_imgs) > 1:
     print 'train_imgs max :',np.max(train_imgs)
     print 'test_imgs max :', np.max(test_imgs)
 
+
 h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
 print 'the # classes : {}'.format(n_classes)
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
 
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=True , actmap_flag=False  , random_crop_resize=224)
 
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.augmentation, actmap_flag=args.actmap  , random_crop_resize=args.random_crop_resize)
 if args.optimizer=='sgd':
-    train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=True)
+    train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=args.l2_loss)
 if args.optimizer=='momentum':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_momentum(logits=logits, labels=y_,
                                                                              learning_rate=lr_,
-                                                                             use_nesterov=args.use_nesterov , l2_loss=False)
+                                                                             use_nesterov=args.use_nesterov , l2_loss=args.l2_loss)
 if args.optimizer == 'adam':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_adam(logits=logits, labels=y_, learning_rate=lr_,
-                                                                         l2_loss=False)
+                                                                         l2_loss=args.l2_loss)
 
 
 log_count =0;
@@ -80,9 +81,9 @@ while True:
 
 
 
-max_iter=80000
+max_iter=args.max_iter
 ckpt=100
-batch_size=80
+batch_size=args.batch_size
 start_time=0
 train_acc=0
 train_val=0
