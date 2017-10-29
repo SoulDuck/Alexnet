@@ -83,4 +83,12 @@ accuracy 81%
 ![Alt_text](readme_pic/fundus_4_result.png)
 
 
+#### learning rate 0.001 | L2_loss X | Augmentation Yes (No random crop)
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_2.md)
+ 
+accuracy 81%
+
+![Alt_text](readme_pic/fundus_12_result.png)
+
+
 
