@@ -88,7 +88,7 @@ accuracy 81%
  
 accuracy 81%
 
-![Alt_text](readme_pic/fundus_12_result.png)
+![Alt_text](readme_pic/fundus_12_0_result.png)
 
 
 
