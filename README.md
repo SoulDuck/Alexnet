@@ -14,7 +14,7 @@ Batch Size 80
 
 Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single Label 
 
-### Momentum Optimizer
+# Momentum Optimizer
 
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation No | 
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_0.md)
