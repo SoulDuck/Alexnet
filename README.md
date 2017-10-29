@@ -69,9 +69,9 @@ max accuracy :?%
 
 
 
+### ADAM Optimizer 
 
-
-#### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation No
+#### learning rate 0.001 | L2_loss X | Augmentation No
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_0.md)
 
 accuracy 75%
@@ -81,7 +81,7 @@ accuracy 75%
 
 
 
-#### Optimizer ADAM | learning rate 0.001 | L2_loss X | Augmentation Yes (No random crop)
+#### learning rate 0.001 | L2_loss X | Augmentation Yes (No random crop)
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_1.md)
  
 accuracy 81%
