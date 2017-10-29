@@ -14,3 +14,23 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 
 Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation yes
 
+![Alt_text](../../readme_pic/fundus_7_0_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_1_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_2_result_.png)
+
+![Alt_text](../../readme_pic/fundus_7_3_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_5_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_6_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_7_result_.png)
+
+![Alt_text](../../readme_pic/fundus_7_8_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_9_result.png)
+
+![Alt_text](../../readme_pic/fundus_7_10_result.png)
+
