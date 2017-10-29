@@ -187,7 +187,7 @@ def train_algorithm_adam(logits, labels, learning_rate , l2_loss):
     return train_op, accuracy, cross_entropy, prediction
 
 def train_algorithm_grad(logits, labels, learning_rate , l2_loss):
-    print 'Optimizer : grad'
+    print 'Optimizer : GradientDescent'
     print 'L2 Loss : ', l2_loss
 
     prediction = tf.nn.softmax(logits, name='softmax')
