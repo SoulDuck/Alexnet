@@ -4,9 +4,32 @@ import input
 import os
 import fundus
 import numpy as np
+import argparse
 import tensorflow as tf
 import aug
 resize=(299,299)
+parser =argparse.ArgumentParser()
+parser.add_argment('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
+parser.add_argment('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
+parser.add_argment('--augmentataion' ,'-aug', type=bool , help='augmentation')
+parser.add_argment('--logits', type=str , choices=['fc' , 'gap'])
+parser.add_argment('--random_crop_resize' , type=bool , help='if you use random crop resize , you can choice randdom crop ')
+parser.add_argment('--batch_size' '-b' , type=int , help='batch size')
+parser.add_argment('--max_iter' '-i' , type=int , help='iteration')
+args=parser.parse_args()
+
+print args.optimizer
+print args.use_nesterov
+print args.augmentation
+print args.logits
+print args.random_crop_resize
+print args.batch_size
+print args.max_iter
+
+
+
+
+
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
 #normalize
 
@@ -20,12 +43,20 @@ if np.max(train_imgs) > 1:
 h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
 print 'the # classes : {}'.format(n_classes)
-
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=True , actmap_flag=False)
-#train_op, accuracy_op , loss_op , pred_op =model.train_algorithm_adam(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=False)
-train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_momentum(logits=logits,labels=y_ , learning_rate=lr_)
-#train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=True)
+
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=True , actmap_flag=False  , random_crop_resize=224)
+
+if args.optimizer=='sgd':
+    train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=True)
+if args.optimizer=='momentum':
+    train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_momentum(logits=logits, labels=y_,
+                                                                             learning_rate=lr_,
+                                                                             use_nesterov=args.use_nesterov , l2_loss=False)
+if args.optimizer == 'adam':
+    train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_adam(logits=logits, labels=y_, learning_rate=lr_,
+                                                                         l2_loss=False)
+
 
 log_count =0;
 while True:
@@ -35,7 +66,6 @@ while True:
         break;
     else:
         log_count+=1
-
 sess, saver , summary_writer =model.sess_start(logs_path)
 
 

@@ -68,7 +68,7 @@ def fc_layer_to_clssses(_input , n_classes):
     return logits
 
 
-def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
+def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resize):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
     image_size = int(x_.get_shape()[-2])
@@ -82,7 +82,9 @@ def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
 
     if aug_flag:
         print 'aug : True'
-        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training, image_size=224) , x_ )
+        if random_crop_resize is None:
+            random_crop_resize=int(x_.get_shape()[1])
+        x_=tf.map_fn(lambda image : aug.aug_lv0(image,is_training, image_size=random_crop_resize) , x_ )
         x_=tf.identity(x_, name='aug_')
     print x_
     assert len(conv_out_features) == len(conv_kernel_sizes )== len(conv_strides)
@@ -145,14 +147,16 @@ def build_graph(x_ , y_ , is_training , aug_flag=True , actmap_flag=False):
 
 
 
-def train_algorithm_momentum(logits, labels, learning_rate):
+def train_algorithm_momentum(logits, labels, learning_rate , use_nesterov , l2_loss):
+    print 'Use Nesterov : ',use_nesterov
+    print 'L2 Loss : ' , l2_loss
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
     l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables()], name='l2_loss')
     momentum = 0.9;
     weight_decay = 1e-4
-    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=momentum, use_nesterov=True)
+    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=momentum, use_nesterov=use_nesterov)
     train_op = optimizer.minimize(cross_entropy + l2_loss * weight_decay, name='train_op')
     correct_prediction = tf.equal(
         tf.argmax(prediction, 1),
