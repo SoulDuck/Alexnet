@@ -14,16 +14,16 @@ Batch Size 80
 
 Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single Label 
 
+### Momentum Optimizer
 
-
-#### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No | 
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation No | 
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_0.md)
 
 max accuracy :79%
 
 ![Alt_text](readme_pic/fundus_0_result.png)
 
-#### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_1.md)
 
 max accuracy :79%
@@ -31,7 +31,18 @@ max accuracy :79%
 ![Alt_text](readme_pic/fundus_6_0_result.png)
 
 
-#### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
+# Not Yet implemented 
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
+[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_3.md)
+
+max accuracy :?%
+
+![Alt_text](readme_pic/fundus_10_0_result.png)
+
+
+
+
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
 
 ##### No Fully connected used , using Global Average Pooling to get Logits
 
@@ -40,6 +51,22 @@ max accuracy :79%
 max accuracy :81%
 
 ![Alt_text](readme_pic/fundus_7_0_result.png)
+
+
+# Not Yet implemented 
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
+
+##### No Fully connected used , using Global Average Pooling to get Logits
+
+[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_4.md)
+
+max accuracy :?%
+
+![Alt_text](readme_pic/fundus_11_0_result.png)
+
+
+
+
 
 
 
