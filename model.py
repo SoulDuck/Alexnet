@@ -154,11 +154,16 @@ def train_algorithm_momentum(logits, labels, learning_rate , use_nesterov , l2_l
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
-    l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables()], name='l2_loss')
+
+
     momentum = 0.9;
-    weight_decay = 1e-4
     optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=momentum, use_nesterov=use_nesterov)
-    train_op = optimizer.minimize(cross_entropy + l2_loss * weight_decay, name='train_op')
+    if l2_loss:
+        l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables()], name='l2_loss')
+        weight_decay = 1e-4
+        train_op = optimizer.minimize(cross_entropy + l2_loss * weight_decay, name='train_op')
+    else :
+        train_op = optimizer.minimize(cross_entropy , name='train_op')
     correct_prediction = tf.equal(
         tf.argmax(prediction, 1),
         tf.argmax(labels, 1), name='correct_prediction')
