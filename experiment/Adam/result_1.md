@@ -21,12 +21,11 @@ Label : single Label
 
 allow_max_pool_indices=[0,1,4]
 
-Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
+Optimizer = ADAM | Nesterov | learning rate 0.001 | L2_loss | Augmentation No
 
+![Alt_text](../../readme_pic/fundus_4_result.png)
 
-![Alt_text](../../readme_pic/fundus_0_result.png)
-
-![Alt_text](../../readme_pic/fundus_2_result.png)
+![Alt_text](../../readme_pic/fundus_5_result.png)
 
 
 
