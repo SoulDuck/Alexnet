@@ -85,7 +85,7 @@ accuracy 81%
 
 #### learning rate 0.001 | L2_loss X | Augmentation Yes (No random crop)
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_2.md)
-### No Fully connected used , using Global Average Pooling to get Logits
+##### No Fully connected used , using Global Average Pooling to get Logits
 
 accuracy 81%
 
