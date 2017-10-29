@@ -29,7 +29,6 @@ print 'l2 loss: ',args.l2_loss
 print 'batch size : ',args.batch_size
 print 'max iter  : ',args.max_iter
 
-exit()
 
 resize=(299,299)
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
@@ -51,7 +50,8 @@ x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_cl
 
 logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.augmentation, actmap_flag=args.actmap  , random_crop_resize=args.random_crop_resize)
 if args.optimizer=='sgd':
-    train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ , l2_loss=args.l2_loss)
+    train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ ,
+                                                                           l2_loss=args.l2_loss)
 if args.optimizer=='momentum':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_momentum(logits=logits, labels=y_,
                                                                              learning_rate=lr_,
