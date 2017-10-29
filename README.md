@@ -44,7 +44,7 @@ max accuracy :81%
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_3.md)
 
-max accuracy :?%
+max accuracy :79.4%
 
 ![Alt_text](readme_pic/fundus_10_0_result.png)
 
@@ -54,7 +54,7 @@ max accuracy :?%
 
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_4.md)
 
-max accuracy :?%
+max accuracy :81%
 
 ![Alt_text](readme_pic/fundus_11_0_result.png)
 
