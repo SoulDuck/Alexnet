@@ -30,18 +30,6 @@ max accuracy :79%
 
 ![Alt_text](readme_pic/fundus_6_0_result.png)
 
-
-# Not Yet implemented 
-#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
-[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_3.md)
-
-max accuracy :?%
-
-![Alt_text](readme_pic/fundus_10_0_result.png)
-
-
-
-
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
 
 ##### No Fully connected used , using Global Average Pooling to get Logits
@@ -53,7 +41,13 @@ max accuracy :81%
 ![Alt_text](readme_pic/fundus_7_0_result.png)
 
 
-# Not Yet implemented 
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
+[show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_3.md)
+
+max accuracy :?%
+
+![Alt_text](readme_pic/fundus_10_0_result.png)
+
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
 
 ##### No Fully connected used , using Global Average Pooling to get Logits
@@ -69,7 +63,7 @@ max accuracy :?%
 
 
 
-### ADAM Optimizer 
+# ADAM Optimizer 
 
 #### learning rate 0.001 | L2_loss X | Augmentation No
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_0.md)
