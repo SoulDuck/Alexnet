@@ -93,4 +93,12 @@ accuracy 81%
 ![Alt_text](readme_pic/fundus_12_0_result.png)
 
 
+# SGD Optimizer (Gradient Descent Optimizer for Batch)
 
+#### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes | 
+
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/SGD/result_0.md)
+
+accuracy 81%
+
+![Alt_text](readme_pic/fundus_9_0_result.png)
