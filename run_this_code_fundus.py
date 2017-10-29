@@ -15,10 +15,11 @@ parser.add_argument('--augmentation' ,'-aug', type=bool , help='augmentation')
 parser.add_argument('--actmap', type=bool)
 parser.add_argument('--random_crop_resize' , type=bool , help='if you use random crop resize , you can choice randdom crop ')
 parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
-aparser.add_argument('--max_iter', '-i' , type=int , help='iteration')
+argparse.add_argument('--max_iter', '-i' , type=int , help='iteration')
 parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
 args=parser.parse_args()
 
+exit()
 print 'optimizer : ', args.optimizer
 print 'use nesterov : ',args.use_nesterov
 print 'augmentation : ',args.augmentation
