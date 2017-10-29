@@ -167,6 +167,9 @@ def train_algorithm_momentum(logits, labels, learning_rate , use_nesterov , l2_l
     return train_op, accuracy, cross_entropy, prediction
 
 def train_algorithm_adam(logits, labels, learning_rate , l2_loss):
+    print 'Optimizer : Adam'
+    print 'L2 Loss : ', l2_loss
+
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
@@ -184,6 +187,9 @@ def train_algorithm_adam(logits, labels, learning_rate , l2_loss):
     return train_op, accuracy, cross_entropy, prediction
 
 def train_algorithm_grad(logits, labels, learning_rate , l2_loss):
+    print 'Optimizer : grad'
+    print 'L2 Loss : ', l2_loss
+
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
