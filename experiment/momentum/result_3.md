@@ -19,4 +19,4 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(with random crop)
 
 
-![Alt_text](readme_pic/fundus_10_0_result.png)
+![Alt_text](../../readme_pic/fundus_10_0_result.png)
