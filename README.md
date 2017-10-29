@@ -33,7 +33,7 @@ max accuracy :79%
 
 #### Optimizer = Momentum Optimizer | Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes(No random crop)
 
-### No Fully connected used , using Global Average Pooling , get Logits
+##### No Fully connected used , using Global Average Pooling to get Logits
 
 [show more experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/momentum/result_2.md)
 
