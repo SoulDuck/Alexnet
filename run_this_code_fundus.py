@@ -19,7 +19,7 @@ parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
 args=parser.parse_args()
 
-exit()
+
 print 'optimizer : ', args.optimizer
 print 'use nesterov : ',args.use_nesterov
 print 'augmentation : ',args.augmentation
@@ -29,6 +29,7 @@ print 'l2 loss: ',args.l2_loss
 print 'batch size : ',args.batch_size
 print 'max iter  : ',args.max_iter
 
+exit()
 
 resize=(299,299)
 train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
