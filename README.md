@@ -87,7 +87,7 @@ accuracy 81%
 ![Alt_text](readme_pic/fundus_4_result.png)
 
 
-#### learning rate 0.001 | L2_loss X | Augmentation Yes (No random crop)
+#### learning rate 0.001 | L2_loss X | Augmentation Yes (with random crop)
 ##### No Fully connected used , using Global Average Pooling to get Logits
 [show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_2.md)
 
@@ -95,6 +95,16 @@ accuracy 81%
 accuracy 81%
 
 ![Alt_text](readme_pic/fundus_12_0_result.png)
+
+#### learning rate 0.001 | L2_loss X | Augmentation Yes (with random crop)
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/Adam/result_3.md)
+
+
+accuracy 81%
+
+![Alt_text](readme_pic/fundus_13_0_result.png)
+
+
 
 
 # SGD Optimizer (Gradient Descent Optimizer for Batch)
