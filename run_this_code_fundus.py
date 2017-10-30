@@ -97,9 +97,9 @@ for step in range(max_iter):
     #### learning rate schcedule
     if step < 5000:
         learning_rate = 0.1
-    if step < 45000:
+    elif step < 45000:
         learning_rate = 0.01
-    if step  < 60000:
+    elif step  < 60000:
         learning_rate = 0.001
     elif step < 120000:
         learning_rate = 0.0001
