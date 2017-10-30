@@ -111,7 +111,7 @@ accuracy 81%
 
 #### Nesterov | learning rate 0.001 | L2_loss | Augmentation Yes | 
 
-[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/SGD/result_0.md)
+[show_more_experiment](https://github.com/SoulDuck/Alexnet/blob/master/experiment/sgd/result_0.md)
 
 accuracy 81%
 
