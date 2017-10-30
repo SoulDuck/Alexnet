@@ -23,3 +23,5 @@ allow_max_pool_indices=[0,1,4]
 ##### learning rate 0.001 | L2_loss | Augmentation Yes (with random crop)
 
 ![Alt_text](../../readme_pic/fundus_13_0_result.png)
+
+![Alt_text](../../readme_pic/fundus_13_1_result.png)
