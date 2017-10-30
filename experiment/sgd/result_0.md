@@ -31,8 +31,8 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 learning rate 조정해야 한다.
 
 ![Alt_text](../../readme_pic/fundus_9_5_result.png)
-![Alt_text](../../readme_pic/fundus_9_6_result.png)
-![Alt_text](../../readme_pic/fundus_9_7_result.png)
+![Alt_text](../../readme_pic/fundus_9_6_result_.png)
+![Alt_text](../../readme_pic/fundus_9_7_result_.png)
 ![Alt_text](../../readme_pic/fundus_9_8_result.png)
 ![Alt_text](../../readme_pic/fundus_9_9_result.png)
 
