@@ -95,9 +95,13 @@ remainder=len(test_labs)/batch_size
 
 for step in range(max_iter):
     #### learning rate schcedule
-    if step  < 30000:
+    if step < 5000:
+        learning_rate = 0.1
+    if step < 45000:
+        learning_rate = 0.01
+    if step  < 60000:
         learning_rate = 0.001
-    elif step < 50000:
+    elif step < 120000:
         learning_rate = 0.0001
     else:
         learning_rate = 0.00001
