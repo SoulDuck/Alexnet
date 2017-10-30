@@ -1,5 +1,9 @@
 # Alexnet
 
+## structure 
+
+![Alt_text](readme_pic/structure.png)
+
 ## Fundus Classification 
 
 conv_out_features=[32,64,64,64,128] | conv_kernel_sizes=[7,5,5,3,3] | conv_strides=[2,2,2,1,1]
