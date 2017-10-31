@@ -108,9 +108,9 @@ for step in range(max_iter):
     ####
     min_loss=0.
     max_acc=0.
+
     best_acc_root=os.path.join(model_root_path , 'best_acc')
     best_loss_root = os.path.join(model_root_path, 'best_loss')
-
     os.mkdir(best_acc_root)
     os.mkdir(best_loss_root)
 
