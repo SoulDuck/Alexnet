@@ -79,7 +79,6 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     before_act_bn_mode = []
     after_act_bn_mode = []
     allow_max_pool_indices=[0,1,4]
-
     if aug_flag:
         print 'aug : True'
         if random_crop_resize is None:

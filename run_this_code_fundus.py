@@ -106,6 +106,14 @@ for step in range(max_iter):
     else:
         learning_rate = 0.00001
     ####
+    min_loss=0.
+    max_acc=0.
+    best_acc_model_path=os.path.join(model_path , 'best_acc')
+    best_loss_model_path = os.path.join(model_path, 'best_loss')
+
+    os.mkdir(best_acc_model_path)
+    os.mkdir(best_loss_model_path)
+
     if step % ckpt==0:
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
@@ -118,8 +126,21 @@ for step in range(max_iter):
             pred_all.append(pred)
         val_acc_mean=np.mean(np.asarray(val_acc_mean ))
         val_loss_mean=np.mean(np.asarray(val_loss_mean))
-        print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
 
+        if val_acc_mean > max_acc: #best acc
+            max_acc=val_acc_mean
+            print 'max acc : {}'.format(max_acc)
+            best_acc_model_path
+            saver.save(sess=sess,
+                       save_path=os.path.join( best_acc_model_path,'step_{}_acc_{}'.format(step , max_acc)))
+
+        if val_loss_mean < min_loss: # best loss
+            min_loss = val_loss_mean
+            print 'min loss : {}'.format(min_loss)
+            saver.save(sess=sess,
+                       save_path=os.path.join(best_loss_model_path, 'step_{}_loss_{}'.format(step, min_loss)))
+
+        print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         saver.save(sess=sess,save_path=os.path.join(os.mkdir(os.path.join(model_path , str(step))),'model_{}'.format(step)))
 
