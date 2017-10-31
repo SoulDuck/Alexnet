@@ -74,9 +74,9 @@ sess, saver , summary_writer =model.sess_start(logs_path)
 
 model_count =0;
 while True:
-    model_path='./models/fundus_300/{}'.format(model_count)
-    if not os.path.isdir(model_path):
-        os.mkdir(model_path)
+    model_root_path='./models/fundus_300/{}'.format(model_count)
+    if not os.path.isdir(model_root_path):
+        os.mkdir(model_root_path)
         break;
     else:
         model_count+=1
@@ -108,11 +108,11 @@ for step in range(max_iter):
     ####
     min_loss=0.
     max_acc=0.
-    best_acc_model_path=os.path.join(model_path , 'best_acc')
-    best_loss_model_path = os.path.join(model_path, 'best_loss')
+    best_acc_root=os.path.join(model_path , 'best_acc')
+    best_loss_root = os.path.join(model_path, 'best_loss')
 
-    os.mkdir(best_acc_model_path)
-    os.mkdir(best_loss_model_path)
+    os.mkdir(best_acc_root)
+    os.mkdir(best_loss_root)
 
     if step % ckpt==0:
         """ #### testing ### """
@@ -130,19 +130,25 @@ for step in range(max_iter):
         if val_acc_mean > max_acc: #best acc
             max_acc=val_acc_mean
             print 'max acc : {}'.format(max_acc)
-            best_acc_model_path
+
+            best_acc_folder=os.path.join( best_acc_root, 'step_{}_acc_{}'.format(step , max_acc))
+            os.mkdir(best_acc_folder)
             saver.save(sess=sess,
-                       save_path=os.path.join( best_acc_model_path,'step_{}_acc_{}'.format(step , max_acc)))
+                       save_path=os.path.join(best_acc_folder  , 'model'))
 
         if val_loss_mean < min_loss: # best loss
-            min_loss = val_loss_mean
+            max_loss = val_loss_mean
             print 'min loss : {}'.format(min_loss)
+            best_loss_folder = os.path.join(best_loss_root, 'step_{}_loss_{}'.format(step, min_loss ))
+            os.mkdir(best_loss_folder)
             saver.save(sess=sess,
-                       save_path=os.path.join(best_loss_model_path, 'step_{}_loss_{}'.format(step, min_loss)))
+                       save_path=os.path.join(best_loss_folder, 'model'))
 
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
-        saver.save(sess=sess,save_path=os.path.join(os.mkdir(os.path.join(model_path , str(step))),'model_{}'.format(step)))
+        model_path=os.path.join(model_root_path, str(step))
+        os.mkdir(model_path) # e.g) models/fundus_300/100/model.ckpt or model.meta
+        saver.save(sess=sess,save_path=os.path.join(model_path,'model')
 
         """image augmentation debug code"""
         """
