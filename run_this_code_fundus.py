@@ -121,7 +121,7 @@ for step in range(max_iter):
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
 
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
-        saver.save(sess=sess,save_path=os.path.join(model_path,'model_{}'.format(step)))
+        saver.save(sess=sess,save_path=os.path.join(os.mkdir(os.path.join(model_path , str(step))),'model_{}'.format(step)))
 
         """image augmentation debug code"""
         """

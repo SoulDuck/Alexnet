@@ -141,12 +141,6 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     return  logits
 
 
-
-
-
-
-
-
 def train_algorithm_momentum(logits, labels, learning_rate , use_nesterov , l2_loss):
     print 'Optimizer : Momentum'
     print 'Use Nesterov : ',use_nesterov
@@ -198,6 +192,8 @@ def train_algorithm_grad(logits, labels, learning_rate , l2_loss):
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
+    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
+                                   name='cross_entropy')
     optimizer = tf.train.GradientDescentOptimizer(learning_rate)
     if l2_loss:
         print 'l2 loss applied'
@@ -230,7 +226,7 @@ def define_inputs(shape, n_classes):
         tf.float32,
         shape=[],
         name='learning_rate')
-    is_training = tf.placeholder(tf.bool, shape=[] ,name='is_training_')
+    is_training = tf.placeholder(tf.bool, shape=[] ,name='is_training')
     return images, labels, learning_rate, is_training
 
 def sess_start(logs_path):
