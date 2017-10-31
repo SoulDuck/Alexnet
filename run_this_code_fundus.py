@@ -81,7 +81,13 @@ while True:
     else:
         model_count+=1
 
+best_acc_root = os.path.join(model_root_path, 'best_acc')
+best_loss_root = os.path.join(model_root_path, 'best_loss')
+os.mkdir(best_acc_root)
+os.mkdir(best_loss_root)
 
+min_loss = 1000.
+max_acc = 0.
 
 max_iter=args.max_iter
 ckpt=100
@@ -92,6 +98,7 @@ train_val=0
 
 share=len(test_labs)/batch_size
 remainder=len(test_labs)/batch_size
+
 
 for step in range(max_iter):
     #### learning rate schcedule
@@ -106,14 +113,6 @@ for step in range(max_iter):
     else:
         learning_rate = 0.00001
     ####
-    min_loss=1000.
-    max_acc=0.
-
-    best_acc_root=os.path.join(model_root_path , 'best_acc')
-    best_loss_root = os.path.join(model_root_path, 'best_loss')
-    os.mkdir(best_acc_root)
-    os.mkdir(best_loss_root)
-
     if step % ckpt==0:
         """ #### testing ### """
         test_fetches = [ accuracy_op, loss_op, pred_op ]
