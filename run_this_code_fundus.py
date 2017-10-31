@@ -136,7 +136,7 @@ for step in range(max_iter):
                        save_path=os.path.join(best_acc_folder  , 'model'))
 
         if val_loss_mean < min_loss: # best loss
-            max_loss = val_loss_mean
+            min_loss = val_loss_mean
             print 'min loss : {}'.format(min_loss)
             best_loss_folder = os.path.join(best_loss_root, 'step_{}_loss_{}'.format(step, min_loss ))
             os.mkdir(best_loss_folder)
