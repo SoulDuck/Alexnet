@@ -34,8 +34,6 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 | --- | --- | --- | --- | --- | --- | --- |--- |
 | SGD | O | O | X | FC | X | ? | ? | 
 | SGD | O | O | X | GAP | X | ? | ? | 
-| Momentum | O | O | X | FC | X | ? | ? | 
-| Momentum | O | O | X | GAP | X | ? | ? | 
 | Momentum+ | O | O | X | FC | X | ? | ? | 
 | Momentum+ | O | O | X | GAP | X | ? | ? | 
 | Adam | O | O | X | FC | X | ? | ? | 
