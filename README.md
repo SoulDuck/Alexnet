@@ -20,11 +20,23 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 
 |Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss | server | 
 | --- | --- | --- | --- | --- | --- | --- |--- | --- | 
-| SGD | O | O | O | FC | X |   ? | ? | ? |
-| SGD | O | O | O | GAP | X |   ? | ? | ? |
-| Momentum | O | O | O | FC | X |   ? | ? | ? |
-| Momentum | O | O | O | GAP | X |   ? | ? | ? |
-| Momentum+ | O | O | O | FC | X |  ? | ? | ? |
-| Momentum+ | O | O | O | GAP | X |   ? | ? | ? |
-| ADAM | O | O | O | GAP | X |   ? | ? | ? |
-| ADAM | O | O | O | GAP | X |   ? | ? | ? |
+| SGD | X | X | X | FC | X |   ? | ? | ? |
+| SGD | O | X | X | FC | X |   ? | ? | ? |
+| SGD | O | O | X | FC | X |   ? | ? | ? |
+| SGD | O | O | X | GAP| X |   ? | ? | ? |
+| SGD | O | O | X | GAP | X |   ? | ? | ? |
+| SGD | O | O | X | GAP | X |   ? | ? | ? |
+| SGD | X | X | O | FC | X |   ? | ? | ? |
+| SGD | O | X | O | FC | X |   ? | ? | ? |
+
+
+|Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss | 
+| --- | --- | --- | --- | --- | --- | --- |--- |
+| SGD | O | O | X | FC | X | ? | ? | 
+| SGD | O | O | X | GAP | X | ? | ? | 
+| Momentum | O | O | X | FC | X | ? | ? | 
+| Momentum | O | O | X | GAP | X | ? | ? | 
+| Momentum+ | O | O | X | FC | X | ? | ? | 
+| Momentum+ | O | O | X | GAP | X | ? | ? | 
+| Adam | O | O | X | FC | X | ? | ? | 
+| Adam | O | O | X | GAP | X | ? | ? | 
