@@ -28,6 +28,9 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
                 max_acc=acc
                 max_list=cbn_models
             print 'max acc : {} , max_list {} '.format(max_acc,max_list)
+    f=open('best_ensemble.txt','w')
+    f.write(max_list)
+    f.write(acc)
     return acc , max_list
 
 
