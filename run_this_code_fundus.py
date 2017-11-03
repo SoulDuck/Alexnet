@@ -60,7 +60,6 @@ if args.optimizer == 'adam':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_adam(logits=logits, labels=y_, learning_rate=lr_,
                                                                          l2_loss=args.l2_loss)
 
-
 log_count =0;
 while True:
     logs_path='./logs/fundus_300/{}'.format(log_count)
