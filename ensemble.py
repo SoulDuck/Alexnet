@@ -19,7 +19,6 @@ def get_models_paths(dir_path):
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
     max_acc=0
     f = open('best_ensemble.txt', 'w')
-    p = open('predcitions.pkl', 'r')
     if not os.path.isfile('predcitions.pkl'):
         p = open('predcitions.pkl' , 'w')
         pred_dic={}
@@ -35,7 +34,7 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
         pickle.dump(pred_dic,p)
 
     else:
-        #p = open('predcitions.pkl', 'r')
+        p = open('predcitions.pkl', 'r')
         pred_dic=pickle.load(p)
 
     print pred_dic.keys()
@@ -115,7 +114,7 @@ def ensemble(model_paths , test_images):
 if __name__ == '__main__':
     model_paths=get_models_paths('./models')
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
-        './fundus_300', resize=(299, 299))
+        './fundus_300_debug', resize=(299, 299))
     acc, max_list=ensemble_with_all_combibation(model_paths ,test_images , test_labels)
 
     """
