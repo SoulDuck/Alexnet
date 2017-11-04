@@ -70,7 +70,7 @@ if __name__ == '__main__':
     pred_sum=ensemble('./models', test_images )
     acc =eval.get_acc(pred_sum , test_labels)
     print acc
-    """s
+    """
 
 
 
