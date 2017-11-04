@@ -17,7 +17,10 @@ def get_models_paths(dir_path):
 
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
     max_acc=0
+    f = open('best_ensemble.txt', 'w')
     for k in range(2,len(model_paths)):
+        k_max_acc = 0
+        k_max_list = []
         print 'K : {}'.format(k)
         for cbn_models in itertools.combinations(model_paths ,k):
             print cbn_models
@@ -32,9 +35,13 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
             if max_acc < acc :
                 max_acc=acc
                 max_list=cbn_models
-            print 'max acc : {} , max_list {} '.format(max_acc,max_list)
-    f=open('best_ensemble.txt','w')
-    f.write(str(max_list))
+            if k_max_acc < acc:
+                k_max_acc = acc
+                k_max_list = cbn_models
+        msg = 'k : {} , list : {} , accuracy : {}\n'.format(k, max_list , max_acc)
+        f.write(msg)
+    msg='model list : {} , accuracy : {}'.format(max_list , max_acc)
+    f.write(msg)
     f.write(str(acc))
     return acc , max_list
 
