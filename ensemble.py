@@ -19,16 +19,16 @@ def get_models_paths(dir_path):
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
     max_acc=0
     f = open('best_ensemble.txt', 'w')
-
     if not os.path.isfile('predcitions.pkl'):
         p = open('predcitions.pkl' , 'w')
         pred_dic={}
         for path in model_paths:
             try:
                 pred_sum = eval.eval(path, test_images)
-            except:
+            except Exception as e :
+                print e
                 print 'Error Path ',path
-                exit()
+
             pred_dic[path]=pred_sum
         #pred_model_path_list=zip(pred_list , model_paths)
         pickle.dump(pred_dic,p)
@@ -52,7 +52,7 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
 
             pred_sum = pred_sum / float(len(cbn_models))
             acc=eval.get_acc(pred_sum , test_labels)
-            print acc
+            print cbn_models ,':',acc
             if max_acc < acc :
                 max_acc=acc
                 max_list=cbn_models
