@@ -46,7 +46,9 @@ def eval(model_path ,test_images):
 
     if np.max(test_images) > 1:
         test_images = test_images / 255.
-    sess = tf.Session()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.Session(config=config)
     saver = tf.train.import_meta_graph(meta_graph_or_file=os.path.join(model_path,'model.meta')) #example model path ./models/fundus_300/5/model_1.ckpt
     saver.restore(sess, save_path=os.path.join(model_path,'model')) # example model path ./models/fundus_300/5/model_1.ckpt
 
