@@ -79,6 +79,7 @@ def eval(model_path ,test_images):
         test_images=map(lambda test_image : np.asarray(test_image.resize(resize ,PIL.Image.ANTIALIAS)),test_images)
     test_images=np.asarray(test_images)
     pred_ = sess.run(pred_ , feed_dict={x_ : test_images[:],is_training_:False})
+    tf.reset_default_graph()
     return pred_
 if __name__ =='__main__':
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
