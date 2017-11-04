@@ -18,7 +18,7 @@ def get_models_paths(dir_path):
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
     max_acc=0
     f = open('best_ensemble.txt', 'w')
-    for k in range(2,len(model_paths)):
+    for k in range(2,len(model_paths)+1):
         k_max_acc = 0
         k_max_list = []
         print 'K : {}'.format(k)
