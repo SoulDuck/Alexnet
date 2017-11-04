@@ -4,6 +4,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import itertools
 
+import os
 """
 #tf cond usage 
 
@@ -21,7 +22,11 @@ init=tf.group(tf.global_variables_initializer() , tf.local_variables_initializer
 sess.run(init)
 b=sess.run(fetches=conv_keep_prob , feed_dict={is_training : False})
 """
-
+"""
 iterable=[1,2,3]
 for i in itertools.combinations(iterable, r=2):
     print i
+"""
+directory='./'
+a=[x for x in os.walk(directory)]
+print a[0]
