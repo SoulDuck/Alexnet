@@ -16,6 +16,7 @@ def get_models_paths(dir_path):
 
 
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
+    max_acc=0
     for k in range(2,len(model_paths)):
         print 'K : {}'.format(k)
         for cbn_models in itertools.combinations(model_paths ,k):
@@ -33,8 +34,8 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
                 max_list=cbn_models
             print 'max acc : {} , max_list {} '.format(max_acc,max_list)
     f=open('best_ensemble.txt','w')
-    f.write(max_list)
-    f.write(acc)
+    f.write(str(max_list))
+    f.write(str(acc))
     return acc , max_list
 
 
@@ -63,7 +64,7 @@ def ensemble(model_paths , test_images):
 if __name__ == '__main__':
     model_paths=get_models_paths('./models')
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
-        './fundus_300', resize=(299, 299))
+        './fundus_300_debug', resize=(299, 299))
 
     acc, max_list=ensemble_with_all_combibation(model_paths ,test_images , test_labels)
     """
