@@ -26,8 +26,10 @@ b=sess.run(fetches=conv_keep_prob , feed_dict={is_training : False})
 iterable=[1,2,3]
 iterable2=[4,5,6]
 iter3=zip(iterable ,iterable2)
-for i in itertools.combinations(iter3, r=2):
-    print i
+for i,k in itertools.combinations(iter3, r=2):
+    print i,\
+        k
+
 """
 directory='./'
 a=[x for x in os.walk(directory)]
