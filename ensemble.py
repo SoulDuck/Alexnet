@@ -19,6 +19,7 @@ def get_models_paths(dir_path):
 def ensemble_with_all_combibation(model_paths , test_images , test_labels):
     max_acc=0
     f = open('best_ensemble.txt', 'w')
+    p = open('predcitions.pkl', 'r')
     if not os.path.isfile('predcitions.pkl'):
         p = open('predcitions.pkl' , 'w')
         pred_dic={}
@@ -34,31 +35,52 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
         pickle.dump(pred_dic,p)
 
     else:
-        p = open('predcitions.pkl', 'r')
+        #p = open('predcitions.pkl', 'r')
         pred_dic=pickle.load(p)
-    p.close()
 
-    for k in range(2,len(model_paths)+1):
+    print pred_dic.keys()
+    for k in range(2,len(pred_dic.keys())+1):
         k_max_acc = 0
         k_max_list = []
         print 'K : {}'.format(k)
         for cbn_models in itertools.combinations(pred_dic.keys(),k):
-            cbn_preds=map(lambda cbn_model: pred_dic[cbn_model],cbn_models)
-            for idx ,pred in enumerate(cbn_preds):
-                if idx ==0 :
-                    pred_sum=pred
-                else:
-                    pred_sum+=pred
+            #print cbn_models
+            #cbn_preds=map(lambda cbn_model: pred_dic[cbn_model],cbn_models)
+            for idx, model in enumerate(cbn_models):
 
+                pred = pred_dic[model]
+                #print idx
+                #print 'pred' ,pred[:10]
+                if idx == 0:
+                    pred_sum = pred
+                else:
+                    pred_sum += pred
+
+            """for idx ,pred in enumerate(cbn_preds):
+                print cbn_models[idx]
+                print idx
+                print pred[:10]
+                if idx ==0 :
+                    pred_sum = pred
+                else:
+                    pred_sum += pred
+            """
             pred_sum = pred_sum / float(len(cbn_models))
             acc=eval.get_acc(pred_sum , test_labels)
             print cbn_models ,':',acc
+            #print pred_sum[:10]
+            p = open('predcitions.pkl', 'r')
+            pred_dic=pickle.load(p)
+
             if max_acc < acc :
                 max_acc=acc
                 max_list=cbn_models
             if k_max_acc < acc:
                 k_max_acc = acc
                 k_max_list = cbn_models
+
+
+
         msg = 'k : {} , list : {} , accuracy : {}\n'.format(k, k_max_list , k_max_acc)
         f.write(msg)
         f.flush()
@@ -93,7 +115,7 @@ def ensemble(model_paths , test_images):
 if __name__ == '__main__':
     model_paths=get_models_paths('./models')
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
-        './fundus_300', resize=(299, 299))
+        './fundus_300_debug', resize=(299, 299))
     acc, max_list=ensemble_with_all_combibation(model_paths ,test_images , test_labels)
 
     """
