@@ -24,7 +24,11 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
         p = open('predcitions.pkl' , 'w')
         pred_dic={}
         for path in model_paths:
-            pred_sum = eval.eval(path, test_images)
+            try:
+                pred_sum = eval.eval(path, test_images)
+            except:
+                print 'Error Path ',path
+                exit()
             pred_dic[path]=pred_sum
         #pred_model_path_list=zip(pred_list , model_paths)
         pickle.dump(pred_dic,p)
@@ -125,7 +129,6 @@ if __name__ == '__main__':
     model_paths=get_models_paths('./models')
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
         './fundus_300', resize=(299, 299))
-
     acc, max_list=ensemble_with_all_combibation(model_paths ,test_images , test_labels)
 
     """

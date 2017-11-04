@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import os
 import input
 import fundus
+from PIL import Image
+import PIL
 ## for mnist dataset ##
+
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 """
@@ -72,8 +75,11 @@ def eval(model_path ,test_images):
     except Exception as e :
         print e
         pass
+    if not int(x_.get_shape()[1]) == np.shape(test_images)[1]:
+        resize=(int(x_.get_shape()[1]),int(x_.get_shape()[1]))
+        test_images=map(lambda test_image : np.asarray(test_image.resize(resize ,PIL.Image.ANTIALIAS)),test_images)
+    test_images=np.asarray(test_images)
     pred_ = sess.run(pred_ , feed_dict={x_ : test_images[:],is_training_:False})
-    print pred_
     return pred_
 if __name__ =='__main__':
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
