@@ -40,9 +40,11 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
                 k_max_list = cbn_models
         msg = 'k : {} , list : {} , accuracy : {}\n'.format(k, max_list , max_acc)
         f.write(msg)
+        f.flush()
     msg='model list : {} , accuracy : {}'.format(max_list , max_acc)
     f.write(msg)
-    f.write(str(acc))
+    f.flush()
+
     return acc , max_list
 
 
