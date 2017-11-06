@@ -112,7 +112,7 @@ def ensemble(model_paths , test_images):
     return pred_sum
 
 if __name__ == '__main__':
-    model_paths=get_models_paths('.models/fundus_300_copt')
+    model_paths=get_models_paths('./models/fundus_300_copt')
     print 'number of model paths : {}'.format(model_paths)
 
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
