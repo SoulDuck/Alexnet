@@ -78,13 +78,14 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
                 k_max_acc = acc
                 k_max_list = cbn_models
 
-            exit()
+
 
 
 
         msg = 'k : {} , list : {} , accuracy : {}\n'.format(k, k_max_list , k_max_acc)
         f.write(msg)
         f.flush()
+        exit()
     msg='model list : {} , accuracy : {}'.format(max_list , max_acc)
     f.write(msg)
     f.flush()
