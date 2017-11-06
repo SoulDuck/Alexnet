@@ -66,7 +66,7 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
             """
             pred_sum = pred_sum / float(len(cbn_models))
             acc=eval.get_acc(pred_sum , test_labels)
-            print cbn_models ,':',acc
+            #print cbn_models ,':',acc
             #print pred_sum[:10]
             p = open('predcitions.pkl', 'r')
             pred_dic=pickle.load(p)
