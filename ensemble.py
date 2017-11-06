@@ -77,6 +77,7 @@ def ensemble_with_all_combibation(model_paths , test_images , test_labels):
             if k_max_acc < acc:
                 k_max_acc = acc
                 k_max_list = cbn_models
+
             exit()
 
 
