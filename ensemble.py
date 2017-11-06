@@ -112,7 +112,7 @@ def ensemble(model_paths , test_images):
     return pred_sum
 
 if __name__ == '__main__':
-    model_paths=get_models_paths('./models/fundus_300/_1_0')
+    model_paths=get_models_paths('./models/fundus_300/012')
     train_images, train_labels, train_filenames, test_images, test_labels, test_filenames = fundus.type1(
         './fundus_300', resize=(299, 299))
     acc, max_list=ensemble_with_all_combibation(model_paths ,test_images , test_labels)
