@@ -228,9 +228,14 @@ def define_inputs(shape, n_classes):
     is_training = tf.placeholder(tf.bool, shape=[] ,name='is_training')
     return images, labels, learning_rate, is_training
 
-def sess_start(logs_path):
+def sess_start(logs_path , allow_growth=False):
     saver=tf.train.Saver(max_to_keep=10000000)
-    sess=tf.Session()
+    if allow_growth:
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess=tf.Session(config)
+    else:
+        sess = tf.Session()
     summary_writer = tf.summary.FileWriter(logs_path)
     summary_writer.add_graph(tf.get_default_graph())
     init = tf.group(tf.global_variables_initializer() , tf.local_variables_initializer())
