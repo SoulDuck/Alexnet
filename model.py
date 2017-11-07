@@ -228,7 +228,7 @@ def define_inputs(shape, n_classes):
     is_training = tf.placeholder(tf.bool, shape=[] ,name='is_training')
     return images, labels, learning_rate, is_training
 
-def sess_start(logs_path , allow_growth=False):
+def sess_start(logs_path , allow_growth=True):
     saver=tf.train.Saver(max_to_keep=10000000)
     if allow_growth:
         config = tf.ConfigProto()
