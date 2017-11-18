@@ -68,16 +68,17 @@ def fc_layer_to_clssses(_input , n_classes):
     return logits
 
 
-def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resize):
+def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resize , bn=False):
     ##### define conv connected layer #######
     n_classes=int(y_.get_shape()[-1])
     image_size = int(x_.get_shape()[-2])
-
     conv_out_features=[32,64,64,64,128]
     conv_kernel_sizes=[7,5,5,3,3]
     conv_strides=[2,2,2,1,1]
     before_act_bn_mode = []
     after_act_bn_mode = []
+    if bn:
+        before_act_bn_mode = [True , True , True , True , True ,True ]
     allow_max_pool_indices=[0,1,4]
     if aug_flag:
         print 'aug : True'
@@ -113,6 +114,8 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
 
     ##### define fully connected layer #######
     fc_out_features = [1024,1024]
+    if bn:
+        before_act_bn_mode = [True, True]
     before_act_bn_mode = []
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
@@ -207,9 +210,6 @@ def train_algorithm_grad(logits, labels, learning_rate , l2_loss):
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, dtype=tf.float32), name='accuracy')
     return train_op, accuracy, cross_entropy, prediction
 
-
-
-
 def define_inputs(shape, n_classes):
     images = tf.placeholder(
         tf.float32,
@@ -250,5 +250,5 @@ def write_acc_loss(summary_writer ,prefix , loss , acc  , step):
 
 if __name__ == '__main__':
     x_ , y_ , lr_ , is_training =define_inputs(shape=[None , 299,299, 3 ] , n_classes=2 )
-    build_graph( x_=x_ , y_=y_ ,is_training=is_training )
+    build_graph( x_=x_ , y_=y_ ,is_training=is_training ,aug_flag=False  )
 
