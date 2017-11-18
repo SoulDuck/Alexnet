@@ -76,7 +76,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     conv_out_features=[32,64,64,64,128]
     conv_kernel_sizes=[7,5,5,3,3]
     conv_strides=[2,2,2,1,1]
-    before_act_bn_mode = []
+    before_act_bn_mode = [True ,True, True ,True , True ]
     after_act_bn_mode = []
     allow_max_pool_indices=[0,1,4]
     if aug_flag:
@@ -113,7 +113,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
 
     ##### define fully connected layer #######
     fc_out_features = [1024,1024]
-    before_act_bn_mode = []
+    before_act_bn_mode = [True , True ]
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:

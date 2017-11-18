@@ -144,7 +144,7 @@ def type1(tfrecords_dir, onehot=True, resize=(299, 299)):
 
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
 
-def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True ):
+def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True ,limits = [3000 , 1000 , 1000 , 1000] ):
     # normal : 3000
     # glaucoma : 1000
     # retina : 1000
@@ -153,7 +153,6 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
     test_images, test_labels, test_filenames = [], [], []
 
     names = ['normal_0', 'glaucoma', 'cataract', 'retina', 'cataract_glaucoma', 'retina_cataract', 'retina_glaucoma']
-    limits = [3000 , 1000 , 1000 , 1000]
     for ind , name in enumerate(names):
         for type in ['train', 'test']:
             imgs, labs, fnames = reconstruct_tfrecord_rawdata(
@@ -244,6 +243,9 @@ def type2(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True 
     np.save(os.path.join(f_path, 'train_labs.npy'), train_labels)
     np.save(os.path.join(f_path, 'train_fnames.npy'), train_filenames)
     return train_images, train_labels, train_filenames, test_images, test_labels, test_filenames
+
+def type3(tfrecords_dir, onehot=True, resize=(299, 299) , random_shuffle = True ,limits = [6000 , 2000 , 2000 , 2000]):
+    return type2(tfrecords_dir, onehot=onehot, resize=resize, random_shuffle = random_shuffle ,limits = limits)
 
 if '__main__' == __name__:
     type2('./fundus_300_debug')
