@@ -46,3 +46,14 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 
 | Adam | O | O | X | FC | X | ? | ? | 
 learning rate 을 조정해야 햔다 .
+
+
+|Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss | learningRate |
+| --- | --- | --- | --- | --- | --- | --- |--- |--- |
+| SGD | X | X | X | FC | O |   [80.1%](readme_pic/14/alex_experiment_14.md) | [0.455](readme_pic/14/alex_experiment_14.md) | |
+| SGD | O | O | X | FC | O |   [81.07%](readme_pic/15/alex_experiment_15.md) | [0.46](readme_pic/15/alex_experiment_15.md) | |
+| SGD | O | O | O | FC | O |   [81.25%](readme_pic/16/alex_experiment_16.md) | [0.43](readme_pic/16/alex_experiment_16.md) | |
+| SGD | X | X | X | GAP| O |   [80.08%](readme_pic/17/alex_experiment_17.md) | [0.44](readme_pic/17/alex_experiment_17.md) | |
+| SGD | O | O | X | GAP | O |  [80.00%](readme_pic/18/alex_experiment_18.md) | [0.46](readme_pic/18/alex_experiment_18.md) | |
+| SGD | O | O | O | GAP | O |  [80.08%](readme_pic/19/alex_experiment_19.md) | [0.47](readme_pic/19/alex_experiment_19.md) | |
+
