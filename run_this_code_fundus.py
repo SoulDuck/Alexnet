@@ -24,7 +24,6 @@ parser.add_argument('--no_actmap', dest='use_actmap', action='store_false')
 
 parser.add_argument('--random_crop_resize' , '-r',  type = int  , help='if you use random crop resize , you can choice randdom crop ')
 
-
 parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 
@@ -45,10 +44,7 @@ print 'BN : ' , args.use_BN
 
 print 'optimizer : ', args.optimizer
 print 'use nesterov : ',args.use_nesterov
-print 'augmentation : ',args.augmentation
-print 'actmap : ' , args.actmap
 print 'random crop size : ',args.random_crop_resize
-print 'l2 loss: ',args.l2_loss
 print 'batch size : ',args.batch_size
 print 'max iter  : ',args.max_iter
 
