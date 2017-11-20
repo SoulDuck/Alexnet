@@ -92,7 +92,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     layer=x_
     for i in range(len(conv_out_features)):
         with tf.variable_scope('conv_{}'.format(str(i))) as scope:
-            if i in before_act_bn_mode:
+            if before_act_bn_mode[i] == True :
                 print 'conv {} layer , batch norm is applied'.format(i)
                 layer=batch_norm(layer , is_training)
             layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
@@ -122,7 +122,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:
-            if i in before_act_bn_mode:
+            if before_act_bn_mode[i] == True:
                 print 'batch normalization {}'.format(i)
                 layer=batch_norm(layer , is_training)
             layer=fc_with_bias(layer , fc_out_features[i] )
