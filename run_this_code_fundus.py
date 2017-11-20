@@ -67,7 +67,9 @@ if args.optimizer == 'adam':
 
 log_count =0;
 while True:
-    logs_path='./logs/fundus_300/{}/{}'.format(args.folder_name , log_count)
+    logs_root_path=logs_path='./logs/fundus_300/{}/'.format(args.folder_name )
+    os.makedirs(logs_path)
+    logs_path=os.path.join(  logs_root_path , log_count)
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
         break;
@@ -78,15 +80,16 @@ sess, saver , summary_writer =model.sess_start(logs_path)
 
 model_count =0;
 while True:
-    model_root_path='./models/fundus_300/{}/{}'.format(args.folder_name,model_count)
-    if not os.path.isdir(model_root_path):
-        os.mkdir(model_root_path)
+    models_root_path='./models/fundus_300/{}'.format(args.folder_name)
+    models_path=os.path.join(models_root_path , model_count)
+    if not os.path.isdir(models_path):
+        os.mkdir(models_path)
         break;
     else:
         model_count+=1
 
-best_acc_root = os.path.join(model_root_path, 'best_acc')
-best_loss_root = os.path.join(model_root_path, 'best_loss')
+best_acc_root = os.path.join(models_path, 'best_acc')
+best_loss_root = os.path.join(models_path, 'best_loss')
 os.mkdir(best_acc_root)
 os.mkdir(best_loss_root)
 
@@ -149,7 +152,7 @@ for step in range(max_iter):
 
         print 'validation acc : {} loss : {}'.format( val_acc_mean, val_loss_mean )
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
-        model_path=os.path.join(model_root_path, str(step))
+        model_path=os.path.join(models_path, str(step))
         os.mkdir(model_path) # e.g) models/fundus_300/100/model.ckpt or model.meta
         #saver.save(sess=sess,save_path=os.path.join(model_path,'model' , folder_name))
         """image augmentation debug code"""
