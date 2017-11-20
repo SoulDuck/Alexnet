@@ -18,6 +18,7 @@ parser.add_argument('--random_crop_resize' , '-r',  type = int  , help='if you u
 parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
+parser.add_argument('--BN' , type=bool , help = 'bn True or not')
 args=parser.parse_args()
 
 
@@ -46,10 +47,12 @@ if np.max(train_imgs) > 1:
 h,w,ch=train_imgs.shape[1:]
 n_classes=np.shape(train_labs)[-1]
 print 'the # classes : {}'.format(n_classes)
-x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes )
+x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes , )
 
 
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.augmentation, actmap_flag=args.actmap  , random_crop_resize=args.random_crop_resize)
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.augmentation, \
+                         actmap_flag=args.actmap  , random_crop_resize=args.random_crop_resize , bn = args.BN)
+
 if args.optimizer=='sgd':
     train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ ,
                                                                            l2_loss=args.l2_loss)
