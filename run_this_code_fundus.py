@@ -74,6 +74,7 @@ while True:
         print e
         pass;
     logs_path=os.path.join(  logs_root_path , log_count)
+    print logs_path
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
         break;
