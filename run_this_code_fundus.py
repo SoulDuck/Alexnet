@@ -10,15 +10,31 @@ import tensorflow as tf
 import aug
 
 parser =argparse.ArgumentParser()
+#parser.add_argument('--saves' , dest='should_save_model' , action = 'store_true')
+#parser.add_argument('--no-saves' , dest='should_save_model', action ='store_false')
+
 parser.add_argument('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
 parser.add_argument('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
-parser.add_argument('--augmentation' ,'-aug', type=bool , help='augmentation')
-parser.add_argument('--actmap', type=bool)
+
+parser.add_argument('--aug' , dest='aug', action='store_true' , help='augmentation')
+parser.add_argument('--no_aug' , dest='aug', action='store_false' , help='augmentation')
+
+parser.add_argument('--actmap', dest='use_actmap' ,action='store_true')
+parser.add_argument('--no_actmap', dest='use_actmap', action='store_false')
+
 parser.add_argument('--random_crop_resize' , '-r',  type = int  , help='if you use random crop resize , you can choice randdom crop ')
+
+
 parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
-parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
-parser.add_argument('--BN' , type=bool , help = 'bn True or not')
+
+parser.add_argument('--l2Loss', dest='use_l2_loss', action='store_true' ,help='l2 loss true or False')
+parser.add_argument('--l2Loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
+
+
+parser.add_argument('--BN' , dest='use_BN'  ,  help = 'bn True or not')
+parser.add_argument('--no_BN',dest='use_BN' , help = 'bn True or not')
+
 parser.add_argument('--folder_name' ,help='ex model/fundus_300/folder_name/0 .. logs/fundus_300/folder_name/0 , type2/folder_name/0')
 args=parser.parse_args()
 
