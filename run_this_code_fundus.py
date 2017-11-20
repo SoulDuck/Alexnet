@@ -19,6 +19,7 @@ parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 parser.add_argument('--l2_loss', '-l' , type=bool , help='l2 loss true or False')
 parser.add_argument('--BN' , type=bool , help = 'bn True or not')
+parser.add_argument('--folder_name' ,help='ex model/fundus_300/folder_name/0 .. logs/fundus_300/folder_name/0 , type2/folder_name/0')
 args=parser.parse_args()
 
 
@@ -66,7 +67,7 @@ if args.optimizer == 'adam':
 
 log_count =0;
 while True:
-    logs_path='./logs/fundus_300/{}'.format(log_count)
+    logs_path='./logs/fundus_300/{}/{}'.format(args.folder_name , log_count)
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
         break;
@@ -77,7 +78,7 @@ sess, saver , summary_writer =model.sess_start(logs_path)
 
 model_count =0;
 while True:
-    model_root_path='./models/fundus_300/{}'.format(model_count)
+    model_root_path='./models/fundus_300/{}/{}'.format(args.folder_name,model_count)
     if not os.path.isdir(model_root_path):
         os.mkdir(model_root_path)
         break;
@@ -150,7 +151,7 @@ for step in range(max_iter):
         model.write_acc_loss( summary_writer, 'validation', loss=val_loss_mean, acc=val_acc_mean, step=step)
         model_path=os.path.join(model_root_path, str(step))
         os.mkdir(model_path) # e.g) models/fundus_300/100/model.ckpt or model.meta
-        #saver.save(sess=sess,save_path=os.path.join(model_path,'model'))
+        #saver.save(sess=sess,save_path=os.path.join(model_path,'model' , folder_name))
         """image augmentation debug code"""
         """
         aug_images_train = tf.get_default_graph().get_tensor_by_name('aug_:0')
