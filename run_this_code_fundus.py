@@ -73,7 +73,8 @@ while True:
     except Exception as e :
         print e
         pass;
-    print logs_path
+    print logs_root_path
+
     logs_path=os.path.join( logs_root_path , log_count)
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
