@@ -32,7 +32,7 @@ parser.add_argument('--l2_loss', dest='use_l2_loss', action='store_true' ,help='
 parser.add_argument('--no_l2 loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
 
 
-parser.add_argument('--BN' , dest='use_BN'  , action='store_true'  help = 'bn True or not')
+parser.add_argument('--BN' , dest='use_BN'  , action='store_true' ,   help = 'bn True or not')
 parser.add_argument('--no_BN',dest='use_BN' , action = 'store_false', help = 'bn True or not')
 
 parser.add_argument('--folder_name' ,help='ex model/fundus_300/folder_name/0 .. logs/fundus_300/folder_name/0 , type2/folder_name/0')
