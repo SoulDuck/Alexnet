@@ -121,6 +121,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     before_act_bn_mode = []
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
+        print i
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:
             if before_act_bn_mode[i] == True:
                 print 'batch normalization {}'.format(i)
