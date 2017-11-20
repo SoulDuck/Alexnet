@@ -28,7 +28,7 @@ parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 
 parser.add_argument('--l2_loss', dest='use_l2_loss', action='store_true' ,help='l2 loss true or False')
-parser.add_argument('--no_l2 loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
+parser.add_argument('--no_l2_loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
 
 
 parser.add_argument('--BN' , dest='use_BN'  , action='store_true' ,   help = 'bn True or not')
