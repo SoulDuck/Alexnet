@@ -16,8 +16,8 @@ parser =argparse.ArgumentParser()
 parser.add_argument('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
 parser.add_argument('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
 
-parser.add_argument('--aug' , dest='aug', action='store_true' , help='augmentation')
-parser.add_argument('--no_aug' , dest='aug', action='store_false' , help='augmentation')
+parser.add_argument('--aug' , dest='use_aug', action='store_true' , help='augmentation')
+parser.add_argument('--no_aug' , dest='use_aug', action='store_false' , help='augmentation')
 
 parser.add_argument('--actmap', dest='use_actmap' ,action='store_true')
 parser.add_argument('--no_actmap', dest='use_actmap', action='store_false')
@@ -38,7 +38,7 @@ parser.add_argument('--no_BN',dest='use_BN' , help = 'bn True or not')
 parser.add_argument('--folder_name' ,help='ex model/fundus_300/folder_name/0 .. logs/fundus_300/folder_name/0 , type2/folder_name/0')
 args=parser.parse_args()
 
-
+print 'BN : ' , args.use_BN
 print 'optimizer : ', args.optimizer
 print 'use nesterov : ',args.use_nesterov
 print 'augmentation : ',args.augmentation
