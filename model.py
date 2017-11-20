@@ -233,7 +233,7 @@ def sess_start(logs_path , allow_growth=True):
     if allow_growth:
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
-        sess=tf.Session(config)
+        sess=tf.Session(config=config)
     else:
         sess = tf.Session()
     summary_writer = tf.summary.FileWriter(logs_path)
