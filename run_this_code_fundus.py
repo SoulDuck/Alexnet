@@ -67,19 +67,19 @@ print 'the # classes : {}'.format(n_classes)
 x_ , y_ , lr_ , is_training = model.define_inputs(shape=[None, h ,w, ch ] , n_classes=n_classes , )
 
 
-logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.augmentation, \
-                         actmap_flag=args.actmap  , random_crop_resize=args.random_crop_resize , bn = args.BN)
+logits=model.build_graph(x_=x_ , y_=y_ ,is_training=is_training , aug_flag=args.use_aug, \
+                         actmap_flag=args.use_actmap  , random_crop_resize=args.random_crop_resize , bn = args.use_BN)
 
 if args.optimizer=='sgd':
     train_op, accuracy_op , loss_op , pred_op = model.train_algorithm_grad(logits=logits,labels=y_ , learning_rate=lr_ ,
-                                                                           l2_loss=args.l2_loss)
+                                                                           l2_loss=args.use_l2_loss)
 if args.optimizer=='momentum':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_momentum(logits=logits, labels=y_,
                                                                              learning_rate=lr_,
-                                                                             use_nesterov=args.use_nesterov , l2_loss=args.l2_loss)
+                                                                             use_nesterov=args.use_nesterov , l2_loss=args.use_l2_loss)
 if args.optimizer == 'adam':
     train_op, accuracy_op, loss_op, pred_op = model.train_algorithm_adam(logits=logits, labels=y_, learning_rate=lr_,
-                                                                         l2_loss=args.l2_loss)
+                                                                         l2_loss=args.use_l2_loss)
 
 log_count =0;
 while True:
