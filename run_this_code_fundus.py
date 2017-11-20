@@ -75,7 +75,7 @@ while True:
         pass;
     print logs_root_path
 
-    logs_path=os.path.join( logs_root_path , log_count)
+    logs_path=os.path.join( logs_root_path , str(log_count))
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
         break;
@@ -92,7 +92,7 @@ while True:
     except Exception as e:
         print e
         pass;
-    models_path=os.path.join(models_root_path , model_count)
+    models_path=os.path.join(models_root_path , str(model_count))
     if not os.path.isdir(models_path):
         os.mkdir(models_path)
         break;
