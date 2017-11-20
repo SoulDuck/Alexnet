@@ -80,6 +80,10 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     if bn:
         print 'BN : True'
         before_act_bn_mode = [True , True , True , True , True ]
+    else:
+        print 'BN : True'
+        before_act_bn_mode = [False , False , False , False , False]
+
     allow_max_pool_indices=[0,1,4]
     if aug_flag:
         print 'aug : True'
@@ -119,7 +123,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     if bn:
         before_act_bn_mode = [True, True]
     else:
-        before_act_bn_mode = []
+        before_act_bn_mode = [False , False]
     after_act_bn_mode = []
     for i in range(len(fc_out_features)):
         with tf.variable_scope('fc_{}'.format(str(i))) as scope:
