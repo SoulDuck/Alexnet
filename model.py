@@ -92,6 +92,7 @@ def build_graph(x_ , y_ , is_training , aug_flag, actmap_flag , random_crop_resi
     for i in range(len(conv_out_features)):
         with tf.variable_scope('conv_{}'.format(str(i))) as scope:
             if i in before_act_bn_mode:
+                print 'conv {} layer , batch norm is applied'.format(i)
                 layer=batch_norm(layer , is_training)
             layer  = conv2d_with_bias(layer, conv_out_features[i], kernel_size=conv_kernel_sizes[i], \
                                  strides= [ 1, conv_strides[i], conv_strides[i], 1 ], padding='SAME' )
