@@ -28,8 +28,8 @@ parser.add_argument('--random_crop_resize' , '-r',  type = int  , help='if you u
 parser.add_argument('--batch_size' ,'-b' , type=int , help='batch size')
 parser.add_argument('--max_iter', '-i' , type=int , help='iteration')
 
-parser.add_argument('--l2Loss', dest='use_l2_loss', action='store_true' ,help='l2 loss true or False')
-parser.add_argument('--l2Loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
+parser.add_argument('--l2_loss', dest='use_l2_loss', action='store_true' ,help='l2 loss true or False')
+parser.add_argument('--no_l2 loss', dest='use_l2_loss', action='store_false' ,help='l2 loss true or False')
 
 
 parser.add_argument('--BN' , dest='use_BN'  ,  help = 'bn True or not')
@@ -38,7 +38,11 @@ parser.add_argument('--no_BN',dest='use_BN' , help = 'bn True or not')
 parser.add_argument('--folder_name' ,help='ex model/fundus_300/folder_name/0 .. logs/fundus_300/folder_name/0 , type2/folder_name/0')
 args=parser.parse_args()
 
+print 'aug : ' , args.use_aug
+print 'actmap : ' , args.actmap
+print 'use_l2_loss: ' , args.use_l2_loss
 print 'BN : ' , args.use_BN
+
 print 'optimizer : ', args.optimizer
 print 'use nesterov : ',args.use_nesterov
 print 'augmentation : ',args.augmentation
