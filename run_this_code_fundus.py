@@ -33,7 +33,7 @@ print 'max iter  : ',args.max_iter
 
 
 resize=(299,299)
-train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300_debug' , onehot=True , resize=resize)
+train_imgs ,train_labs ,train_fnames, test_imgs ,test_labs , test_fnames=fundus.type2(tfrecords_dir='./fundus_300' , onehot=True , resize=resize)
 
 #normalize
 print np.shape(test_labs)
