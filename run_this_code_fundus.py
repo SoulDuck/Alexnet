@@ -67,7 +67,7 @@ if args.optimizer == 'adam':
 
 log_count =0;
 while True:
-    logs_root_path=logs_path='./logs/fundus_300/{}/'.format(args.folder_name )
+    logs_root_path=logs_path='./logs/fundus_300/{}'.format(args.folder_name )
     os.makedirs(logs_path)
     logs_path=os.path.join(  logs_root_path , log_count)
     if not os.path.isdir(logs_path):
