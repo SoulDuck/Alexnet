@@ -67,8 +67,11 @@ if args.optimizer == 'adam':
 
 log_count =0;
 while True:
-    logs_root_path=logs_path='./logs/fundus_300/{}'.format(args.folder_name )
-    os.makedirs(logs_path)
+    logs_root_path='./logs/fundus_300/{}'.format(args.folder_name )
+    try:
+        os.makedirs(logs_root_path)
+    except Exception as e :
+        print e
     logs_path=os.path.join(  logs_root_path , log_count)
     if not os.path.isdir(logs_path):
         os.mkdir(logs_path)
@@ -81,6 +84,10 @@ sess, saver , summary_writer =model.sess_start(logs_path)
 model_count =0;
 while True:
     models_root_path='./models/fundus_300/{}'.format(args.folder_name)
+    try:
+        os.makedirs(models_root_path)
+    except Exception as e:
+        print e
     models_path=os.path.join(models_root_path , model_count)
     if not os.path.isdir(models_path):
         os.mkdir(models_path)
