@@ -157,8 +157,6 @@ def train_algorithm_momentum(logits, labels, learning_rate , use_nesterov , l2_l
     prediction = tf.nn.softmax(logits, name='softmax')
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels),
                                    name='cross_entropy')
-
-
     momentum = 0.9;
     optimizer = tf.train.MomentumOptimizer(learning_rate, momentum=momentum, use_nesterov=use_nesterov)
     if l2_loss:
