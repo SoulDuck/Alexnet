@@ -14,7 +14,9 @@ parser =argparse.ArgumentParser()
 #parser.add_argument('--no-saves' , dest='should_save_model', action ='store_false')
 
 parser.add_argument('--optimizer' ,'-o' , type=str ,choices=['sgd','momentum','adam'],help='optimizer')
-parser.add_argument('--use_nesterov' , type=bool , help='only for momentum , use nesterov')
+
+parser.add_argument('--nesterov' , dest='use_nesterov' , action='store_true',help='only for momentum , use nesterov')
+parser.add_argument('--no_nesterov' , dest='use_nesterov' , action='store_false',help='only for momentum , use nesterov')
 
 parser.add_argument('--aug' , dest='use_aug', action='store_true' , help='augmentation')
 parser.add_argument('--no_aug' , dest='use_aug', action='store_false' , help='augmentation')
