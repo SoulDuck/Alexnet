@@ -20,14 +20,14 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 
 |Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss | learningRate |
 | --- | --- | --- | --- | --- | --- | --- |--- |--- |
-| SGD | X | X | X | FC | X |   [80.1%](readme_pic/0/alex_experiment_0.md) | [0.455](alex_experiment_0.md) | |
-| SGD | O | X | X | FC | X |   [81.07%](readme_pic/1/alex_experiment_1.md) | [0.46](readme_pic/1/alex_experiment_1.md) | |
-| SGD | O | O | X | FC | X |   [81.25%](readme_pic/2/alex_experiment_2.md) | [0.43](readme_pic/2/alex_experiment_2.md) | |
-| SGD | O | O | X | GAP| X |   [80.08%](readme_pic/3/alex_experiment_3.md) | [0.44](readme_pic/3/alex_experiment_3.md) | |
-| SGD | O | O | X | GAP | X |  [80.00%](readme_pic/4/alex_experiment_4.md) | [0.46](readme_pic/4/alex_experiment_4.md) | |
-| SGD | O | O | X | GAP | X |  [80.08%](readme_pic/5/alex_experiment_5.md) | [0.47](readme_pic/5/alex_experiment_5.md) | |
-| SGD | X | X | O | FC | X |   [82.14%](readme_pic/6/alex_experiment_6.md) | [0.44](readme_pic/6/alex_experiment_6.md) | |
-| SGD | O | X | O | FC | X |   [82.50%](readme_pic/7/alex_experiment_7.md) | [0.44](readme_pic/7/alex_experiment_7.md) | |
+| SGD | O | X | O | GAP | X |   [80.1%](readme_pic/0/alex_experiment_0.md) | [0.455](alex_experiment_0.md) | |
+| SGD | O | X | O | GAP | X |   [81.07%](readme_pic/1/alex_experiment_1.md) | [0.46](readme_pic/1/alex_experiment_1.md) | |
+| SGD | O | O | O | GAP | X |   [81.25%](readme_pic/2/alex_experiment_2.md) | [0.43](readme_pic/2/alex_experiment_2.md) | |
+| SGD | O | O | O | GAP| X |   [80.08%](readme_pic/3/alex_experiment_3.md) | [0.44](readme_pic/3/alex_experiment_3.md) | |
+| SGD | O | O | O | GAP | X |  [80.00%](readme_pic/4/alex_experiment_4.md) | [0.46](readme_pic/4/alex_experiment_4.md) | |
+| SGD | O | O | O | GAP | X |  [80.08%](readme_pic/5/alex_experiment_5.md) | [0.47](readme_pic/5/alex_experiment_5.md) | |
+| SGD | O | X | O | GAP | X |   [82.14%](readme_pic/6/alex_experiment_6.md) | [0.44](readme_pic/6/alex_experiment_6.md) | |
+| SGD | O | X | O | GAP | X |   [82.50%](readme_pic/7/alex_experiment_7.md) | [0.44](readme_pic/7/alex_experiment_7.md) | |
 
 
 |Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss |  learningRate |
