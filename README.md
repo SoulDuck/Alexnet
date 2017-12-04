@@ -32,12 +32,12 @@ Data Normal 3000 | glaucoma 1000 , retina 1000 , cataract 1000 | Label : single 
 
 |Optimizer| augmentation | random crop | L2 loss | Fc or gap | batch norm | acc | loss |  learningRate |
 | --- | --- | --- | --- | --- | --- | --- |--- |--- |
-| SGD | O | O | X | GAP | X | [79.46%](readme_pic/8/alex_experiment_8.md) | [0.47](readme_pic/8/alex_experiment_8.md) | | 
-| SGD | O | O | X | GAP | X | [81.07%](readme_pic/9/alex_experiment_9.md) | [0.43](readme_pic/9/alex_experiment_9.md) |  |
-| Momentum+ | O | O | X | GAP | X | [78.57%](readme_pic/10/alex_experiment_10.md) | [0.47](readme_pic/10/alex_experiment_10.md) | | 
-| Momentum+ | O | O | X | GAP | X | ? | ? | | 
-| Adam | O | O | X | GAP | X | ? | ? | | 
-| Adam | O | O | X | GAP | X | ? | ? | | 
+| SGD | O | O | O | GAP | X | [79.46%](readme_pic/8/alex_experiment_8.md) | [0.47](readme_pic/8/alex_experiment_8.md) | | 
+| SGD | O | O | O | GAP | X | [81.07%](readme_pic/9/alex_experiment_9.md) | [0.43](readme_pic/9/alex_experiment_9.md) |  |
+| Momentum+ | O | O | O | GAP | X | [78.57%](readme_pic/10/alex_experiment_10.md) | [0.47](readme_pic/10/alex_experiment_10.md) | | 
+| Momentum+ | O | O | O | GAP | X | ? | ? | | 
+| Adam | O | O | O | GAP | X | ? | ? | | 
+| Adam | O | O | O | GAP | X | ? | ? | | 
 
 
 
